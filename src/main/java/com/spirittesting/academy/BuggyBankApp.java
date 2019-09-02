@@ -1,5 +1,8 @@
 package com.spirittesting.academy;
 
+import com.spirittesting.academy.exceptions.KontoNotFoundException;
+import com.spirittesting.academy.exceptions.KundeNotFoundException;
+
 import java.math.BigDecimal;
 
 public class BuggyBankApp {
@@ -7,45 +10,55 @@ public class BuggyBankApp {
     public static void main(String[] args) {
         KundenService kundenService = new KundenService();
 
-        Kunde hannes = new Kunde("001", "Hannes");
-        Kunde werner = new Kunde("002", "Werner");
+        kundenService.addKunde("Hannes", 2);
+        kundenService.addKunde("Werner", 2);
 
-        Konto hannes1 = new Konto("01", hannes);
-        Konto hannes2 = new Konto("02", hannes);
-        Konto werner1 = new Konto("03", werner);
-        Konto werner2 = new Konto("04", werner);
-
-        Zahlung hannes1werner1a = new Zahlung(hannes1, werner1, BigDecimal.TEN);
-        Zahlung hannes1werner1b = new Zahlung(hannes1, werner1, BigDecimal.valueOf(15));
-        Zahlung werner1werner2 = new Zahlung(werner1, werner2, BigDecimal.valueOf(5));
-
-        hannes1.addZahlung(hannes1werner1a);
-        hannes1.addZahlung(hannes1werner1b);
-        werner1.addZahlung(hannes1werner1a);
-        werner1.addZahlung(hannes1werner1b);
-        werner1.addZahlung(werner1werner2);
-        werner2.addZahlung(werner1werner2);
-
-        kundenService.addKunde(hannes);
-        kundenService.addKunde(werner);
-        kundenService.addKonto(hannes1);
-        kundenService.addKonto(hannes2);
-        kundenService.addKonto(werner1);
-        kundenService.addKonto(werner2);
+        try {
+            kundenService.addZahlung(kundenService.getKonto("01"), kundenService.getKonto("03"), BigDecimal.valueOf(10));
+            kundenService.addZahlung(kundenService.getKonto("01"), kundenService.getKonto("03"), BigDecimal.valueOf(15));
+            kundenService.addZahlung(kundenService.getKonto("03"), kundenService.getKonto("04"), BigDecimal.valueOf(5));
+        } catch (KontoNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
 
         System.out.println("------");
-        System.out.println(kundenService.getKundeninfo("001"));
+        try {
+            System.out.println(kundenService.getKundeninfo("001").toString());
+        } catch (KundeNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
         System.out.println("------");
-        System.out.println(kundenService.getKundeninfo("002"));
+        try {
+            System.out.println(kundenService.getKundeninfo("002").toString());
+        } catch (KundeNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
         System.out.println("------");
-        System.out.println(kundenService.getKontoinfo("01"));
+        try {
+            System.out.println(kundenService.getKontoinfo("01"));
+        } catch (KontoNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
         System.out.println("------");
-        System.out.println(kundenService.getKontoinfo("02"));
+        try {
+            System.out.println(kundenService.getKontoinfo("02"));
+        } catch (KontoNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
         System.out.println("------");
-        System.out.println(kundenService.getKontoinfo("03"));
+        try {
+            System.out.println(kundenService.getKontoinfo("03"));
+        } catch (KontoNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
         System.out.println("------");
-        System.out.println(kundenService.getKontoinfo("04"));
+        try {
+            System.out.println(kundenService.getKontoinfo("04"));
+        } catch (KontoNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
         System.out.println("------");
+
     }
 
 }

@@ -1,4 +1,4 @@
-package com.spirittesting.academy;
+package com.spirittesting.academy.domain;
 
 import java.math.BigDecimal;
 import java.time.Instant;
