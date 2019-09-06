@@ -2,12 +2,21 @@ package com.spirittesting.academy;
 
 import com.spirittesting.academy.exceptions.KontoNotFoundException;
 import com.spirittesting.academy.exceptions.KundeNotFoundException;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 
+@SpringBootApplication
 public class BuggyBankApp {
 
     public static void main(String[] args) {
+        SpringApplication.run(BuggyBankApp.class, args);
+    }
+
+    @PostConstruct
+    public void smoketest() {
         KundenService kundenService = new KundenService();
 
         kundenService.addKunde("Hannes", 2);
