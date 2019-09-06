@@ -46,11 +46,13 @@ public class Konto {
     }
 
     public void addZahlung(Zahlung zahlung) {
+        if (zahlung == null) throw new IllegalArgumentException("Zahlung darf nicht NULL sein");
         log.info("Zahlung hinzugefügt zu {}: {}", this.kontonummer, zahlung);
         this.zahlungen.add(zahlung);
     }
 
     public void removeZahlung(Zahlung zahlung) {
+        if (zahlung == null) throw new IllegalArgumentException("Zahlung darf nicht NULL sein");
         log.info("Zahlung entfernt aus {}: {}", this.kontonummer, zahlung);
         this.zahlungen.remove(zahlung);
     }
