@@ -9,9 +9,9 @@ import java.util.*;
 public class Konto {
 
     private static Logger log = LoggerFactory.getLogger(Konto.class);
+    private final Set<Zahlung> zahlungen = new HashSet<>();
     private String kontonummer;
     private Kunde kunde;
-    private final Set<Zahlung> zahlungen = new HashSet<>();
 
     public Konto() {
         log.info("Leeres Konto wurde erstellt.");

@@ -28,6 +28,8 @@ public class KundenService {
     }
 
     public Kunde addKunde(String name, int anzahlKonten) {
+        if (name == null) throw new IllegalArgumentException("Name darf nicht NULL sein");
+        if (anzahlKonten < 0) throw new IllegalArgumentException("Anzahl Konten darf nicht negativ sein");
         Kunde kunde = new Kunde(String.format("%03d", kundennummerSequence.incrementAndGet()), name);
         for (int i = 0; i < anzahlKonten; i++) {
             Konto konto = new Konto(String.format("%02d", kontonummerSequence.incrementAndGet()), kunde);
@@ -38,10 +40,12 @@ public class KundenService {
     }
 
     public Konto getKonto(String kontonummer) throws KontoNotFoundException {
+        if (kontonummer == null) throw new IllegalArgumentException("Kontonummer darf nicht NULL sein");
         return konten.stream().filter(konto -> kontonummer.equals(konto.getKontonummer())).findFirst().orElseThrow(() -> new KontoNotFoundException(kontonummer));
     }
 
     public KundenInfo getKundeninfo(String kundennummer) throws KundeNotFoundException {
+        if (kundennummer == null) throw new IllegalArgumentException("Kundennummer darf nicht null sein");
         for (Kunde kunde : kunden) {
             if (kundennummer.equals(kunde.getKundennummer())) {
                 return new KundenInfo(kundennummer, kunde.getName(), konten);
@@ -51,6 +55,7 @@ public class KundenService {
     }
 
     public KontoInfo getKontoinfo(String kontonummer) throws KontoNotFoundException {
+        if (kontonummer == null) throw new IllegalArgumentException("Kontonummer darf nicht NULL sein");
         return new KontoInfo(konten.stream()
                 .filter(konto -> kontonummer.equals(konto.getKontonummer()))
                 .findFirst()

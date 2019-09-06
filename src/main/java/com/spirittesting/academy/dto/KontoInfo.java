@@ -49,6 +49,6 @@ public class KontoInfo {
 
     @Override
     public String toString() {
-        return "KtoNr "+ kontonummer + ", Saldo: EUR " + betrag + "\n" + zahlungen.stream().sorted().map(ZahlungsInfo::toString).map(z -> "\t" + z).collect(Collectors.joining("\n"));
+        return "KtoNr " + kontonummer + ", Saldo: EUR " + betrag + "\n" + zahlungen.stream().sorted().map(ZahlungsInfo::toString).map(z -> "\t" + z).collect(Collectors.joining("\n"));
     }
 }

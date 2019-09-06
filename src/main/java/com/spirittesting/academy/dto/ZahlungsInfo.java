@@ -5,9 +5,7 @@ import com.spirittesting.academy.domain.Zahlung;
 import java.math.RoundingMode;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.StringJoiner;
 
 public class ZahlungsInfo implements Comparable<ZahlungsInfo> {
 
