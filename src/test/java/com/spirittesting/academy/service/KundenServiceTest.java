@@ -1,4 +1,4 @@
-package com.spirittesting.academy;
+package com.spirittesting.academy.service;
 
 import com.spirittesting.academy.domain.Konto;
 import com.spirittesting.academy.exceptions.KontoNotFoundException;
@@ -14,10 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class KundenServiceTest {
 
-    KundenService kundenService = new KundenService();
+    private KundenService kundenService;
 
     @BeforeEach
     void setup() {
+        kundenService = new KundenService(new KontonummerService(1, "%d"), new KundennummerService(1, "%d"));
         kundenService.addKunde("Hannes", 1);
         kundenService.addKunde("Werner", 2);
         kundenService.addZahlung(getKonto(1), getKonto(2), BigDecimal.TEN);
@@ -25,7 +26,7 @@ class KundenServiceTest {
 
     private Konto getKonto(int kontonummer) {
         try {
-            return kundenService.getKonto(String.format("%02d", kontonummer));
+            return kundenService.getKonto(String.format("%d", kontonummer));
         } catch (KontoNotFoundException e) {
             fail();
             return new Konto();
@@ -83,7 +84,7 @@ class KundenServiceTest {
 
         @Test
         void erhaeltKundennummer() throws KundeNotFoundException {
-            assertNotNull(kundenService.getKundeninfo("001"));
+            assertNotNull(kundenService.getKundeninfo("1"));
         }
 
         @Test
@@ -93,7 +94,7 @@ class KundenServiceTest {
 
         @Test
         void mehrereKontenWerdenAngelegt() throws KundeNotFoundException {
-            assertEquals(2, kundenService.getKundeninfo("002").getKonten().size());
+            assertEquals(2, kundenService.getKundeninfo("2").getKonten().size());
         }
 
         @Test
@@ -118,7 +119,7 @@ class KundenServiceTest {
 
         @Test
         void nichtVorhanden() throws KontoNotFoundException {
-            assertThrows(KontoNotFoundException.class, () -> kundenService.getKonto("04"));
+            assertThrows(KontoNotFoundException.class, () -> kundenService.getKonto("4"));
         }
 
         @Test
@@ -132,12 +133,12 @@ class KundenServiceTest {
     class GetKundeninfo {
         @Test
         void gefunden() throws KundeNotFoundException {
-            assertNotNull(kundenService.getKundeninfo("001"));
+            assertNotNull(kundenService.getKundeninfo("1"));
         }
 
         @Test
         void nichtVorhanden() {
-            assertThrows(KundeNotFoundException.class, () -> kundenService.getKundeninfo("003"));
+            assertThrows(KundeNotFoundException.class, () -> kundenService.getKundeninfo("3"));
         }
 
         @Test
@@ -151,12 +152,12 @@ class KundenServiceTest {
     class GetKontoinfo {
         @Test
         void gefunden() throws KontoNotFoundException {
-            assertNotNull(kundenService.getKontoinfo("01"));
+            assertNotNull(kundenService.getKontoinfo("1"));
         }
 
         @Test
         void nichtVorhanden() {
-            assertThrows(KontoNotFoundException.class, () -> kundenService.getKontoinfo("04"));
+            assertThrows(KontoNotFoundException.class, () -> kundenService.getKontoinfo("4"));
         }
 
         @Test
