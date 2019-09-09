@@ -14,6 +14,10 @@ public class Euro extends BigDecimal {
         super(value.startsWith("EUR ") ? value.substring(4).toCharArray() : value.toCharArray());
     }
 
+    public Euro(int euro) {
+        this(euro, 0);
+    }
+
     public Euro(int euro, int cent) {
         super(Integer.toString(euro) + "." + Integer.toString(cent));
     }

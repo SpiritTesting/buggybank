@@ -26,6 +26,12 @@ public class KontoService {
         return konto;
     }
 
+    Konto addKonto(String kontonummer) {
+        Konto konto = new Konto(kontonummer, new Kunde("000", "Buggybank"));
+        this.konten.add(konto);
+        return konto;
+    }
+
     public Konto getKonto(String kontonummer) throws KontoNotFoundException {
         return konten.stream().filter(konto -> kontonummer.equals(konto.getKontonummer())).findFirst().orElseThrow(() -> new KontoNotFoundException(kontonummer));
     }

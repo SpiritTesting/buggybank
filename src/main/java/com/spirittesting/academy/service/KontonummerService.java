@@ -1,5 +1,6 @@
 package com.spirittesting.academy.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,7 +12,8 @@ public class KontonummerService {
 
     private final String pattern;
 
-    public KontonummerService(int initialeKontonummer, String kontonummerPattern) {
+    public KontonummerService(@Value("${buggybank.kontonummern.initial:1}") int initialeKontonummer,
+                              @Value("${buggybank.kontonummern.pattern:1234%04d}") String kontonummerPattern) {
         if (initialeKontonummer < 0 || kontonummerPattern == null)
             throw new IllegalArgumentException("Kontonummer oder Pattern fehlerhaft");
         this.pattern = kontonummerPattern;
