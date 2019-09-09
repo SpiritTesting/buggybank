@@ -16,7 +16,7 @@ public class KontoInfo {
 
     public KontoInfo(Konto konto) {
         this.kontonummer = konto.getKontonummer();
-        this.betrag = konto.getBetrag().setScale(2, RoundingMode.HALF_UP).toPlainString();
+        this.betrag = konto.getBetrag().toString();
         this.zahlungen.addAll(konto.getZahlungen().stream().map(ZahlungsInfo::new).collect(Collectors.toSet()));
     }
 

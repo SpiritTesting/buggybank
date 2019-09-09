@@ -20,7 +20,7 @@ public class ZahlungsInfo implements Comparable<ZahlungsInfo> {
         this.datum = formatter.format(zahlung.getDatum());
         this.quelle = zahlung.getQuelle().getKontonummer();
         this.ziel = zahlung.getZiel().getKontonummer();
-        this.betrag = zahlung.getBetrag().setScale(2, RoundingMode.HALF_UP).toPlainString();
+        this.betrag = zahlung.getBetrag().toString();
     }
 
     public String getDatum() {
@@ -57,7 +57,7 @@ public class ZahlungsInfo implements Comparable<ZahlungsInfo> {
 
     @Override
     public String toString() {
-        return String.format("%s: %s -> %s (EUR %s)", datum, quelle, ziel, betrag);
+        return String.format("%s: %s -> %s (%s)", datum, quelle, ziel, betrag);
     }
 
     @Override

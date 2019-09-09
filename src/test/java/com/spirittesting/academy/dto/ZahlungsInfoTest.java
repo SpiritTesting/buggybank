@@ -1,5 +1,6 @@
 package com.spirittesting.academy.dto;
 
+import com.spirittesting.academy.domain.Euro;
 import com.spirittesting.academy.domain.Konto;
 import com.spirittesting.academy.domain.Kunde;
 import com.spirittesting.academy.domain.Zahlung;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ZahlungsInfoTest {
 
     ZahlungsInfo zahlungsInfo = new ZahlungsInfo(new Zahlung(new Konto("1", new Kunde("1", "Hannes")), new Konto("2",
-            new Kunde("2", "Werner")), BigDecimal.ONE));
+            new Kunde("2", "Werner")), new Euro("1")));
 
     @Test
     void getDatum() {
@@ -34,12 +35,12 @@ class ZahlungsInfoTest {
 
     @Test
     void getBetrag() {
-        assertEquals("1.00", zahlungsInfo.getBetrag());
+        assertEquals("EUR 1.00", zahlungsInfo.getBetrag());
     }
 
     @Test
     void compareTo() {
-        ZahlungsInfo spaeter = new ZahlungsInfo(new Zahlung(new Konto(), new Konto(), BigDecimal.ZERO));
+        ZahlungsInfo spaeter = new ZahlungsInfo(new Zahlung(new Konto("1", null), new Konto("2", null), new Euro()));
         assertEquals(0, zahlungsInfo.compareTo(spaeter));
     }
 }

@@ -10,9 +10,9 @@ public class Zahlung {
     private final Instant datum = Instant.now();
     private final Konto quelle;
     private final Konto ziel;
-    private final BigDecimal betrag;
+    private final Euro betrag;
 
-    public Zahlung(Konto quelle, Konto ziel, BigDecimal betrag) {
+    public Zahlung(Konto quelle, Konto ziel, Euro betrag) {
         if (quelle == null) {
             throw new IllegalArgumentException("Quellkonto darf nicht NULL sein");
         }

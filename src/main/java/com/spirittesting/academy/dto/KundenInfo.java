@@ -24,7 +24,7 @@ public class KundenInfo {
     private void addKonten(Collection<Konto> konten) {
         for (Konto konto : konten) {
             if (!kundennummer.equals(konto.getKunde().getKundennummer())) continue;
-            this.konten.put(konto.getKontonummer(), konto.getBetrag().setScale(2, RoundingMode.HALF_UP).toPlainString());
+            this.konten.put(konto.getKontonummer(), konto.getBetrag().toString());
         }
     }
 
@@ -58,6 +58,6 @@ public class KundenInfo {
     @Override
     public String toString() {
         return "Kunde " + name + " (KdNr. " + kundennummer + ")\n" + konten.entrySet().stream().map(entry ->
-                "\tKtoNr " + entry.getKey() + ": EUR " + entry.getValue()).collect(Collectors.joining("\n"));
+                "\tKtoNr " + entry.getKey() + ": " + entry.getValue()).collect(Collectors.joining("\n"));
     }
 }

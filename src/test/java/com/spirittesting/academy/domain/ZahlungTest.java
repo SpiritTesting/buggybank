@@ -11,22 +11,23 @@ class ZahlungTest {
 
     @Test
     void testZahlung_SetztDatum() {
-        assertNotNull(new Zahlung(new Konto(), new Konto(), BigDecimal.ONE).getDatum());
+        assertNotNull(new Zahlung(new Konto("1", null), new Konto("2", null), new Euro("1")).getDatum());
     }
 
     @Test
     void testZahlung_QuelleIstNull() {
-        assertThrows(IllegalArgumentException.class, () -> new Zahlung(null, new Konto(), BigDecimal.ONE));
+        assertThrows(IllegalArgumentException.class, () -> new Zahlung(null, new Konto("1", null), new Euro("1")));
     }
 
     @Test
     void testZahlung_ZielIstNull() {
-        assertThrows(IllegalArgumentException.class, () -> new Zahlung(new Konto(), null, BigDecimal.ONE));
+        assertThrows(IllegalArgumentException.class, () -> new Zahlung(new Konto("1", null), null, new Euro("1")));
     }
 
     @Test
     void testZahlung_BetragIstNull() {
-        assertThrows(IllegalArgumentException.class, () -> new Zahlung(new Konto(), new Konto(), null));
+        assertThrows(IllegalArgumentException.class, () -> new Zahlung(new Konto("1", null), new Konto("2", null),
+                null));
     }
 
 }

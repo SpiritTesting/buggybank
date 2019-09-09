@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class KontoTest {
 
     Konto konto = new Konto("1", new Kunde());
-    Zahlung zahlung = new Zahlung(konto, new Konto(), BigDecimal.TEN);
+    Zahlung zahlung = new Zahlung(konto, new Konto("2", null), new Euro("10"));
 
     @Test
     void getZahlungen_IstNieNull() {
@@ -41,7 +41,7 @@ class KontoTest {
     @Test
     void removeZahlung() {
         // Vorbedingung
-        Zahlung zahlung1 = new Zahlung(new Konto(), konto, BigDecimal.TEN);
+        Zahlung zahlung1 = new Zahlung(new Konto("1", null), konto, new Euro("10"));
         konto.addZahlung(zahlung1);
         konto.addZahlung(zahlung);
 
@@ -66,8 +66,9 @@ class KontoTest {
     @Test
     void getBetrag_MitZahlungen() {
         konto.addZahlung(zahlung);
-        konto.addZahlung(new Zahlung(konto, new Konto(), BigDecimal.ONE));
+        konto.addZahlung(new Zahlung(konto, new Konto("2", null), new Euro("1")));
 
         assertEquals(BigDecimal.valueOf(-11), konto.getBetrag());
     }
+
 }

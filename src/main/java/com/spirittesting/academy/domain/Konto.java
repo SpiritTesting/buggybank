@@ -10,12 +10,9 @@ public class Konto {
 
     private static Logger log = LoggerFactory.getLogger(Konto.class);
     private final Set<Zahlung> zahlungen = new HashSet<>();
-    private String kontonummer;
-    private Kunde kunde;
-
-    public Konto() {
-        log.info("Leeres Konto wurde erstellt.");
-    }
+    private final String kontonummer;
+    private final Kunde kunde;
+    private Euro kreditrahmen = new Euro();
 
     public Konto(String kontonummer, Kunde kunde) {
         log.info("Konto wurde erstellt. Kontonummer {}, Kunde {}", kontonummer, kunde);
@@ -27,18 +24,8 @@ public class Konto {
         return kontonummer;
     }
 
-    public void setKontonummer(String kontonummer) {
-        log.info("Kontonummer geändert von {} auf {}", this.kontonummer, kontonummer);
-        this.kontonummer = kontonummer;
-    }
-
     public Kunde getKunde() {
         return kunde;
-    }
-
-    public void setKunde(Kunde kunde) {
-        log.info("Kunde geändert von {} auf {}", this.kunde, kunde);
-        this.kunde = kunde;
     }
 
     public Set<Zahlung> getZahlungen() {
@@ -57,7 +44,7 @@ public class Konto {
         this.zahlungen.remove(zahlung);
     }
 
-    public BigDecimal getBetrag() {
+    public Euro getBetrag() {
         BigDecimal betrag = BigDecimal.ZERO;
         for (Zahlung zahlung : zahlungen) {
             if (Objects.equals(zahlung.getQuelle().getKontonummer(), kontonummer)) {
@@ -67,7 +54,16 @@ public class Konto {
                 betrag = betrag.add(zahlung.getBetrag());
             }
         }
-        return betrag;
+        return new Euro(betrag);
+    }
+
+    public Euro getKreditrahmen() {
+        return kreditrahmen;
+    }
+
+    public void setKreditrahmen(Euro kreditrahmen) {
+        log.info("Kreditrahmen für Konto {} von EUR {} auf {} geändert.", kontonummer, this.kreditrahmen, kreditrahmen);
+        this.kreditrahmen = kreditrahmen;
     }
 
     @Override
@@ -75,22 +71,24 @@ public class Konto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Konto konto = (Konto) o;
-        return Objects.equals(getKontonummer(), konto.getKontonummer()) &&
+        return Objects.equals(getZahlungen(), konto.getZahlungen()) &&
+                Objects.equals(getKontonummer(), konto.getKontonummer()) &&
                 Objects.equals(getKunde(), konto.getKunde()) &&
-                getZahlungen().equals(konto.getZahlungen());
+                Objects.equals(getKreditrahmen(), konto.getKreditrahmen());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getKontonummer(), getKunde(), getZahlungen());
+        return Objects.hash(getZahlungen(), getKontonummer(), getKunde(), getKreditrahmen());
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", Konto.class.getSimpleName() + "[", "]")
-                .add("kontonummer='" + kontonummer + "'")
-                .add("kunde=" + kunde)
                 .add("betrag=" + getBetrag())
+                .add("kontonummer='" + kontonummer + "'")
+                .add("kunde=" + kunde.getKundennummer())
+                .add("kreditrahmen=" + kreditrahmen)
                 .toString();
     }
 }
