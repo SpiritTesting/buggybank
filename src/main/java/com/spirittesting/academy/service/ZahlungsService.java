@@ -18,11 +18,15 @@ public class ZahlungsService {
     }
 
     public Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag) {
+        return addZahlung(quellKontonummer, zielKontonummer, betrag, false);
+    }
+
+    Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag, boolean ignoreKreditrahmen) {
         Konto quelle = kontoService.getKonto(quellKontonummer);
         Konto ziel = kontoService.getKonto(zielKontonummer);
         Zahlung zahlung = new Zahlung(quelle, ziel, betrag);
 
-        if (quelle.getBetrag().subtract(betrag).compareTo(quelle.getKreditrahmen().multiply(BigDecimal.valueOf(-1))) < 0) {
+        if (!ignoreKreditrahmen && quelle.getBetrag().subtract(betrag).compareTo(quelle.getKreditrahmen().multiply(BigDecimal.valueOf(-1))) < 0) {
             throw new KontoDeckungException(quellKontonummer);
         }
 

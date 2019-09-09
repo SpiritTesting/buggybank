@@ -33,4 +33,8 @@ public class KontoService {
     public Set<Konto> getKonten(String kundennummer) {
         return konten.stream().filter(konto -> kundennummer.equals(konto.getKunde().getKundennummer())).collect(Collectors.toSet());
     }
+
+    Set<Konto> getAllKonten() {
+        return konten;
+    }
 }
