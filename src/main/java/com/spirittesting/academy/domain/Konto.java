@@ -1,22 +1,42 @@
 package com.spirittesting.academy.domain;
 
+import org.hibernate.annotations.WhereJoinTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 
+@Entity
 public class Konto {
 
     private static Logger log = LoggerFactory.getLogger(Konto.class);
-    private final Set<Zahlung> zahlungen = new HashSet<>();
-    private final String kontonummer;
-    private final Kunde kunde;
+
+    @Id
+    private String kontonummer;
+    @ManyToOne
+    @JoinColumn(name = "kunde", referencedColumnName = "kundennummer")
+    private Kunde kunde;
+    @Embedded
+    @AttributeOverride(name="euro", column=@Column(name="kreditrahmen"))
     private Euro kreditrahmen = new Euro();
+
+    Konto() {
+    }
 
     public Konto(String kontonummer, Kunde kunde) {
         log.info("Konto wurde erstellt. Kontonummer {}, Kunde {}", kontonummer, kunde);
         this.kontonummer = kontonummer;
+        this.kunde = kunde;
+    }
+
+    void setKontonummer(String kontonummer) {
+        this.kontonummer = kontonummer;
+    }
+
+    void setKunde(Kunde kunde) {
         this.kunde = kunde;
     }
 
@@ -26,35 +46,6 @@ public class Konto {
 
     public Kunde getKunde() {
         return kunde;
-    }
-
-    public Set<Zahlung> getZahlungen() {
-        return Collections.unmodifiableSet(zahlungen);
-    }
-
-    public void addZahlung(Zahlung zahlung) {
-        if (zahlung == null) throw new IllegalArgumentException("Zahlung darf nicht NULL sein");
-        log.info("Zahlung hinzugefügt zu {}: {}", this.kontonummer, zahlung);
-        this.zahlungen.add(zahlung);
-    }
-
-    public void removeZahlung(Zahlung zahlung) {
-        if (zahlung == null) throw new IllegalArgumentException("Zahlung darf nicht NULL sein");
-        log.info("Zahlung entfernt aus {}: {}", this.kontonummer, zahlung);
-        this.zahlungen.remove(zahlung);
-    }
-
-    public Euro getBetrag() {
-        BigDecimal betrag = BigDecimal.ZERO;
-        for (Zahlung zahlung : zahlungen) {
-            if (Objects.equals(zahlung.getQuelle().getKontonummer(), kontonummer)) {
-                betrag = betrag.subtract(zahlung.getBetrag());
-            }
-            if (Objects.equals(zahlung.getZiel().getKontonummer(), kontonummer)) {
-                betrag = betrag.add(zahlung.getBetrag());
-            }
-        }
-        return new Euro(betrag);
     }
 
     public Euro getKreditrahmen() {
@@ -71,21 +62,19 @@ public class Konto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Konto konto = (Konto) o;
-        return Objects.equals(getZahlungen(), konto.getZahlungen()) &&
-                Objects.equals(getKontonummer(), konto.getKontonummer()) &&
+        return Objects.equals(getKontonummer(), konto.getKontonummer()) &&
                 Objects.equals(getKunde(), konto.getKunde()) &&
                 Objects.equals(getKreditrahmen(), konto.getKreditrahmen());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getZahlungen(), getKontonummer(), getKunde(), getKreditrahmen());
+        return Objects.hash(getKontonummer(), getKunde(), getKreditrahmen());
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", Konto.class.getSimpleName() + "[", "]")
-                .add("betrag=" + getBetrag())
                 .add("kontonummer='" + kontonummer + "'")
                 .add("kunde=" + kunde.getKundennummer())
                 .add("kreditrahmen=" + kreditrahmen)

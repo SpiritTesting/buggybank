@@ -6,6 +6,7 @@ import com.spirittesting.academy.domain.Kunde;
 import com.spirittesting.academy.domain.Zahlung;
 import com.spirittesting.academy.exceptions.KontoDeckungException;
 import com.spirittesting.academy.exceptions.KontoNotFoundException;
+import com.spirittesting.academy.repository.ZahlungRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,17 +27,20 @@ class ZahlungsServiceTest {
     ZahlungsService zahlungsService;
     Konto quelle;
     Konto ziel;
+    private ZahlungRepository zahlungRepository;
 
     @BeforeEach
-    void init(@Mock KontoService kontoService) {
-        zahlungsService = new ZahlungsService(kontoService);
+    void init(@Mock KontoService kontoService, @Mock ZahlungRepository zahlungRepository) {
+        this.zahlungRepository = zahlungRepository;
+        zahlungsService = new ZahlungsService(kontoService, zahlungRepository);
         quelle = new Konto("1", new Kunde("1", "Hannes"));
         ziel = new Konto("2", new Kunde("2", "Werner"));
 
-        quelle.addZahlung(new Zahlung(new Konto("3", new Kunde("0", "NOBODY")), quelle, new Euro(100, 00)));
         Mockito.lenient().when(kontoService.getKonto(eq("1"))).thenReturn(quelle);
         Mockito.lenient().when(kontoService.getKonto(eq("2"))).thenReturn(ziel);
         Mockito.lenient().when(kontoService.getKonto(eq("3"))).thenThrow(new KontoNotFoundException("3"));
+        Mockito.lenient().when(zahlungRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
+        Mockito.lenient().when(kontoService.getBetrag(any(Konto.class))).thenReturn(new Euro(100));
     }
 
     @Test
@@ -45,9 +50,7 @@ class ZahlungsServiceTest {
         assertEquals(ziel, zahlung.getZiel());
         assertEquals("EUR 5.00", zahlung.getBetrag().toString());
         assertTrue(Math.abs(Instant.now().toEpochMilli() - zahlung.getDatum().toEpochMilli()) < 1000);
-
-        assertTrue(quelle.getZahlungen().contains(zahlung));
-        assertTrue(ziel.getZahlungen().contains(zahlung));
+        Mockito.verify(zahlungRepository).save(eq(zahlung));
     }
 
     @Test

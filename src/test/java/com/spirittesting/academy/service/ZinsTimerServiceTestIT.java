@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -28,8 +30,6 @@ class ZinsTimerServiceTestIT {
 
     @Value("${buggybank.zinsen.delay.initial:1000}")
     private long initialDelay;
-    @Value("${buggybank.zinsen.delay.rate:1000}")
-    private long delayRate;
 
     @Test
     void addZahlung() {
@@ -39,19 +39,20 @@ class ZinsTimerServiceTestIT {
         final Konto kontoHannes = kontoService.addKonto(hannes);
         final Konto kontoWerner = kontoService.addKonto(werner);
 
-        kontoHannes.setKreditrahmen(new Euro(200));
+        kontoService.setKreditrahmen(kontoHannes.getKontonummer(), new Euro(200));
 
         final Zahlung zahlung = zahlungsService.addZahlung(kontoHannes.getKontonummer(), kontoWerner.getKontonummer(), new Euro(200));
 
         try {
-            log.info("Dieser Test wartet jetzt {}ms auf die Zinsberechnung", initialDelay + delayRate / 2);
-            Thread.sleep(initialDelay + delayRate / 2);
+            log.info("Dieser Test wartet jetzt {}ms auf die Zinsberechnung", initialDelay);
+            Thread.sleep(initialDelay);
+            log.info("Test läuft weiter");
         } catch (InterruptedException e) {
             fail();
         }
 
-        assertEquals(new Euro(202), kontoWerner.getBetrag());
-        assertEquals(new Euro(-220), kontoHannes.getBetrag());
+        assertEquals(new Euro(202), kontoService.getBetrag(kontoWerner));
+        assertEquals(new Euro(-220), kontoService.getBetrag(kontoHannes));
 
     }
 

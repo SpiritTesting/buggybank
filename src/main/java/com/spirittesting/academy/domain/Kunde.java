@@ -3,18 +3,20 @@ package com.spirittesting.academy.domain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+@Entity
 public class Kunde {
 
     private static Logger log = LoggerFactory.getLogger(Kunde.class);
+    @Id
     private String kundennummer;
     private String name;
 
-    public Kunde() {
-        log.info("Leerer Kunde erzeugt");
-    }
+    public Kunde() {}
 
     public Kunde(String kundennummer, String name) {
         log.info("Kunde angelegt mit Kundennummer {} und Name {}", kundennummer, name);
@@ -26,7 +28,7 @@ public class Kunde {
         return this.kundennummer;
     }
 
-    public void setKundennummer(String kundennummer) {
+    void setKundennummer(String kundennummer) {
         log.info("Kundennummer geändert von {} auf {}", this.kundennummer, kundennummer);
         this.kundennummer = kundennummer;
     }

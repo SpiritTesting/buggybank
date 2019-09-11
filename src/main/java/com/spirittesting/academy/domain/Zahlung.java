@@ -1,16 +1,29 @@
 package com.spirittesting.academy.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
+@Entity
 public class Zahlung {
 
-    private final Instant datum = Instant.now();
-    private final Konto quelle;
-    private final Konto ziel;
-    private final Euro betrag;
+    @Id
+    private UUID id = UUID.randomUUID();
+    private Instant datum = Instant.now();
+    @ManyToOne
+    @JoinColumn(name = "quelle", referencedColumnName = "kontonummer")
+    private Konto quelle;
+    @ManyToOne
+    @JoinColumn(name = "ziel", referencedColumnName = "kontonummer")
+    private Konto ziel;
+    @Embedded
+    @AttributeOverride(name = "euro", column = @Column(name = "betrag"))
+    private Euro betrag;
+
+    Zahlung() {}
 
     public Zahlung(Konto quelle, Konto ziel, Euro betrag) {
         if (quelle == null) {
@@ -29,6 +42,12 @@ public class Zahlung {
         this.betrag = betrag;
     }
 
+    void setId(UUID id) {
+        this.id = id;
+    }
+
+    UUID getId() { return id; }
+
     public Instant getDatum() {
         return datum;
     }
@@ -41,8 +60,24 @@ public class Zahlung {
         return ziel;
     }
 
-    public BigDecimal getBetrag() {
+    public Euro getBetrag() {
         return betrag;
+    }
+
+    void setDatum(Instant datum) {
+        this.datum = datum;
+    }
+
+    void setQuelle(Konto quelle) {
+        this.quelle = quelle;
+    }
+
+    void setZiel(Konto ziel) {
+        this.ziel = ziel;
+    }
+
+    void setBetrag(Euro betrag) {
+        this.betrag = betrag;
     }
 
     @Override
