@@ -1,0 +1,6 @@
+target/**
+.idea/**
+**/*.iml
+~$Aufgaben.pptx
+logs/**
+data/**
