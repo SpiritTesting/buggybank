@@ -1,5 +1,10 @@
 package com.spirittesting.academy.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.spirittesting.academy.web.rest.json.EuroDeserializer;
+import com.spirittesting.academy.web.rest.json.EuroSerializer;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.math.BigDecimal;
@@ -7,6 +12,8 @@ import java.math.RoundingMode;
 import java.util.Objects;
 
 @Embeddable
+@JsonSerialize(using = EuroSerializer.class)
+@JsonDeserialize(using = EuroDeserializer.class)
 public class Euro implements Comparable<Euro> {
 
     public static Euro ZERO = new Euro(0);
@@ -46,9 +53,13 @@ public class Euro implements Comparable<Euro> {
         return new Euro(euro.add(summand.euro));
     }
 
-    public boolean isNegative() { return euro.compareTo(BigDecimal.ZERO) < 0; }
+    public boolean isNegative() {
+        return euro.compareTo(BigDecimal.ZERO) < 0;
+    }
 
-    public Euro absolute() { return isNegative() ? new Euro(euro.multiply(BigDecimal.valueOf(-1))) : this; }
+    public Euro absolute() {
+        return isNegative() ? new Euro(euro.multiply(BigDecimal.valueOf(-1))) : this;
+    }
 
     @Override
     public String toString() {
@@ -60,7 +71,8 @@ public class Euro implements Comparable<Euro> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Euro euro1 = (Euro) o;
-        return Objects.equals(euro.setScale(3, RoundingMode.HALF_UP).toPlainString(), euro1.euro.setScale(3, RoundingMode.HALF_UP).toPlainString());
+        return Objects.equals(euro.setScale(2, RoundingMode.HALF_UP).toPlainString(), euro1.euro.setScale(2,
+                RoundingMode.HALF_UP).toPlainString());
     }
 
     @Override

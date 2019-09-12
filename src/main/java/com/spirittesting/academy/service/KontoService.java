@@ -10,9 +10,7 @@ import com.spirittesting.academy.repository.ZahlungRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -63,18 +61,13 @@ public class KontoService {
 
     @Transactional
     public Euro getBetrag(String kontonummer) {
-        List<Zahlung> eingehend = zahlungRepository.findAllByZiel_Kontonummer(kontonummer);
-        List<Zahlung> abgehend = zahlungRepository.findAllByQuelle_Kontonummer(kontonummer);
-
-        Euro betrag = Euro.ZERO;
-        for (Zahlung zahlung : eingehend) betrag = betrag.add(zahlung.getBetrag());
-        for (Zahlung zahlung : abgehend) betrag = betrag.subtract(zahlung.getBetrag());
-
+        final Euro betrag =
+                zahlungRepository.findAllByZiel_Kontonummer(kontonummer).stream().map(Zahlung::getBetrag).reduce(Euro::add).orElse(Euro.ZERO).subtract(zahlungRepository.findAllByQuelle_Kontonummer(kontonummer).stream().map(Zahlung::getBetrag).reduce(Euro::add).orElse(Euro.ZERO));
         return betrag;
     }
 
     @Transactional
-    Set<Konto> getAllKonten() {
+    public Set<Konto> getAllKonten() {
         return new HashSet<>(kontoRepository.findAll());
     }
 

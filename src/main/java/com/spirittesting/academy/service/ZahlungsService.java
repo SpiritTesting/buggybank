@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class ZahlungsService {
@@ -24,6 +25,13 @@ public class ZahlungsService {
     @Transactional
     public Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag) {
         return addZahlung(quellKontonummer, zielKontonummer, betrag, false);
+    }
+
+    @Transactional
+    public List<Zahlung> getZahlungen(String kontonummer) {
+        final List<Zahlung> zahlungen = zahlungRepository.findAllByQuelle_Kontonummer(kontonummer);
+        zahlungen.addAll(zahlungRepository.findAllByZiel_Kontonummer(kontonummer));
+        return zahlungen;
     }
 
     Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag, boolean ignoreKreditrahmen) {

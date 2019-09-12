@@ -5,6 +5,7 @@ import com.spirittesting.academy.exceptions.KundeNotFoundException;
 import com.spirittesting.academy.repository.KundeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -31,6 +32,10 @@ public class KundeService {
 
     public Set<Kunde> findByName(String name) {
         return kundeRepository.findAllByNameStartingWith(name);
+    }
+
+    public List<Kunde> getAllKunden() {
+        return kundeRepository.findAll();
     }
 
 }

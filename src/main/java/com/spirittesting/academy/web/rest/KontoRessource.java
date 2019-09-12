@@ -1,0 +1,70 @@
+package com.spirittesting.academy.web.rest;
+
+import com.spirittesting.academy.domain.Euro;
+import com.spirittesting.academy.domain.Konto;
+import com.spirittesting.academy.domain.Kunde;
+import com.spirittesting.academy.service.KontoService;
+import com.spirittesting.academy.service.KundeService;
+import com.spirittesting.academy.service.ZahlungsService;
+import com.spirittesting.academy.web.rest.dto.KontoDTO;
+import com.spirittesting.academy.web.rest.dto.KontoDetailsDTO;
+import com.spirittesting.academy.web.rest.dto.KundeDTO;
+import com.spirittesting.academy.web.rest.dto.ZahlungDTO;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("api/konto")
+@Transactional
+public class KontoRessource {
+
+    private KontoService kontoService;
+    private KundeService kundeService;
+    private ZahlungsService zahlungsService;
+
+    public KontoRessource(KontoService kontoService, KundeService kundeService, ZahlungsService zahlungsService) {
+        this.kontoService = kontoService;
+        this.kundeService = kundeService;
+        this.zahlungsService = zahlungsService;
+    }
+
+    @GetMapping
+    public List<KontoDTO> getKonten() {
+        return kontoService.getAllKonten().stream().map(konto -> new KontoDTO(konto.getKontonummer(),
+                kontoService.getBetrag(konto))).sorted().collect(Collectors.toList());
+    }
+
+    @GetMapping("{kontonummer}")
+    public KontoDetailsDTO getKonto(@PathVariable String kontonummer) {
+        Konto konto = kontoService.getKonto(kontonummer);
+        SortedSet<ZahlungDTO> zahlungen =
+                zahlungsService.getZahlungen(kontonummer).stream()
+                        .map(z -> new ZahlungDTO(
+                                z.getDatum(),
+                                z.getQuelle().getKontonummer(),
+                                z.getZiel().getKontonummer(),
+                                z.getBetrag()))
+                        .collect(Collectors.toCollection(TreeSet::new));
+        return new KontoDetailsDTO(konto.getKontonummer(), konto.getKreditrahmen(), kontoService.getBetrag(konto),
+                zahlungen);
+    }
+
+    @PostMapping
+    public KontoDTO addKonto(@RequestBody KundeDTO kundeDTO) {
+        Kunde kunde = kundeService.findByKundennummer(kundeDTO.getKundennummer());
+        Konto konto = kontoService.addKonto(kunde);
+        return new KontoDTO(konto.getKontonummer(), Euro.ZERO);
+    }
+
+    @PostMapping("{quelle}/{ziel}")
+    public void addZahlung(@PathVariable String quelle, @PathVariable String ziel, @RequestBody Euro euro) {
+        zahlungsService.addZahlung(quelle, ziel, euro);
+    }
+
+}
