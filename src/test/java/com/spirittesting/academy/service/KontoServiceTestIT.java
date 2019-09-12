@@ -6,10 +6,12 @@ import com.spirittesting.academy.repository.KontoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Sql({"/Kunden.sql"})
 class KontoServiceTestIT {
 
     @Autowired
@@ -21,7 +23,7 @@ class KontoServiceTestIT {
 
     @Test
     void addKonto() {
-        final Kunde kunde = kundeService.addKunde("addKonto");
+        final Kunde kunde = kundeService.findByKundennummer("1");
         final Konto konto = kontoService.addKonto(kunde);
         assertTrue(kontoRepository.findById(konto.getKontonummer()).isPresent());
     }
@@ -34,17 +36,15 @@ class KontoServiceTestIT {
 
     @Test
     void getKonto() {
-        final Kunde kunde = kundeService.addKunde("getKontoKunde");
-        kontoRepository.save(new Konto("getKonto", kunde));
-        assertNotNull(kontoService.getKonto("getKonto"));
+        assertNotNull(kontoService.getKonto("2"));
     }
 
     @Test
     void getKonten() {
-        final Kunde kunde = kundeService.addKunde("getKontenKunde");
-        kontoRepository.save(new Konto("getKonten1", kunde));
-        kontoRepository.save(new Konto("getKonten2", kunde));
-        kontoRepository.save(new Konto("getKonten3", kunde));
+        final Kunde kunde = kundeService.addKunde("Egon");
+        kontoRepository.save(new Konto("6", kunde));
+        kontoRepository.save(new Konto("7", kunde));
+        kontoRepository.save(new Konto("8", kunde));
         assertEquals(3, kontoService.getKonten(kunde.getKundennummer()).size());
     }
 

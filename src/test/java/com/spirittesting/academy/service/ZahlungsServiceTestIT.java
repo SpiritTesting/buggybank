@@ -1,24 +1,22 @@
 package com.spirittesting.academy.service;
 
 import com.spirittesting.academy.domain.Euro;
-import com.spirittesting.academy.domain.Konto;
-import com.spirittesting.academy.domain.Kunde;
-import com.spirittesting.academy.domain.Zahlung;
 import com.spirittesting.academy.exceptions.KontoDeckungException;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
+import com.spirittesting.academy.repository.KundeRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.jdbc.Sql;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Sql({"/Kunden.sql", "/Maximalzahlung.sql"})
 @Rollback(false)
 class ZahlungsServiceTestIT {
 
@@ -29,43 +27,32 @@ class ZahlungsServiceTestIT {
     @Autowired
     KundeService kundeService;
 
-    static String kontoHannes;
-    static String kontoWerner;
+    static String kontoHannes = "1";
+    static String kontoWerner = "2";
 
-    @Test
-    @Transactional
-    @Order(1)
-    void vorbereitung() {
-        final Kunde hannes = kundeService.addKunde("Hannes");
-        final Kunde werner = kundeService.addKunde("Werner");
+    @Autowired
+    KundeRepository kundeRepository;
 
-        kontoHannes = kontoService.addKonto(hannes).getKontonummer();
-        kontoWerner = kontoService.addKonto(werner).getKontonummer();
-
-        kontoService.setKreditrahmen(kontoHannes, new Euro(200));
-        zahlungsService.addZahlung(kontoHannes, kontoWerner, new Euro(200));
-        assertFalse(kontoHannes.isEmpty());
-        assertFalse(kontoWerner.isEmpty());
+    @PostConstruct
+    public void initialize() {
+        LoggerFactory.getLogger(getClass()).error("{} Kunden in Datenbank", kundeRepository.count());
     }
 
     @Test
     @Transactional
-    @Order(2)
     void addZahlung_gesendet() {
         assertEquals(new Euro(-200), kontoService.getBetrag(kontoHannes));
     }
 
     @Test
     @Transactional
-    @Order(3)
     void addZahlung_erhalten() {
         assertEquals(new Euro(200), kontoService.getBetrag(kontoWerner));
     }
 
     @Test
     @Transactional
-    @Order(4)
-    @Rollback(true)
+    @Rollback
     void zahlungUeberziehtKonto() {
         assertThrows(KontoDeckungException.class, () -> zahlungsService.addZahlung(kontoHannes,
                 kontoWerner, new Euro(0, 1)));
