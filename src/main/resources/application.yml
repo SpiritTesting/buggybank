@@ -1,0 +1,50 @@
+logging:
+  file:
+    max-history: 0
+  path: logs/buggybank.log
+  level:
+    root: INFO
+    com.spirittesting.academy:
+      domain: INFO
+      service: DEBUG
+
+buggybank:
+  kontonummern:
+    initial: 3
+    pattern: 1234%04d
+  kundennummern:
+    initial: 3
+    pattern: KDNR%04d
+  zinsen:
+    zinssatz:
+      soll: 0.1
+      haben: 0.01
+    delay:
+      initial: 20000
+      rate: 20000
+
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/database
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: sa
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: validate
+
+info:
+  app:
+    name: BuggyBynk Backend
+    description: Spirit Academy rocks
+    version: 1.6.3
+
+---
+spring:
+  profiles: dev
+  datasource:
+    data: classpath:clean.sql
+  h2:
+    console:
+      enabled: true
