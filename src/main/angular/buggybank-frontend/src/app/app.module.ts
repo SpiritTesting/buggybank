@@ -9,11 +9,13 @@ import {TableModule} from 'primeng/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KundenuebersichtComponent } from './kundenuebersicht/kundenuebersicht.component';
+import { KundendetailsComponent } from './kundendetails/kundendetails.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    KundenuebersichtComponent
+    KundenuebersichtComponent,
+    KundendetailsComponent
   ],
   imports: [
     BrowserModule,

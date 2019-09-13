@@ -1,0 +1,9 @@
+<h1>{{ kunde?.name }}</h1>
+
+<p>Kundennummer {{ kunde?.kundennummer }}</p>
+<p>Gesamtsaldo {{ kunde?.saldo }}</p>
+
+<h2>Konten</h2>
+<div *ngFor="let konto of kunde?.konten">
+  <a [routerLink]="'/konten/' + konto">{{ konto }}</a>
+</div>
