@@ -10,11 +10,9 @@ import {SERVER_API_URL} from './app.constants';
 export class AppComponent implements OnInit{
   title = 'buggybank-frontend';
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.http.get(SERVER_API_URL + 'api/kunde', {observe: 'body'}).subscribe(body => console.log(body));
-  }
+  ngOnInit(): void { }
 
 
 }
