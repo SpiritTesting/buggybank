@@ -1,0 +1,22 @@
+<h1>Konto {{ konto?.kontonummer }}</h1>
+<p>Saldo {{ konto?.betrag }}</p>
+<p>Kreditrahmen {{ konto?.kreditrahmen }}</p>
+
+<p-table *ngIf="konto" [value]="konto.zahlungen">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Datum</th>
+      <th>Von</th>
+      <th>An</th>
+      <th>Betrag</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-zahlung>
+    <tr>
+      <td>{{ zahlung.datum }}</td>
+      <td>{{ zahlung.quelle }}</td>
+      <td>{{ zahlung.ziel }}</td>
+      <td>{{ zahlung.betrag }}</td>
+    </tr>
+  </ng-template>
+</p-table>

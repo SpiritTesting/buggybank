@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {SERVER_API_URL} from './app.constants';
+import {Kontodetails} from './kontodetails/kontodetails.model';
 import {Kundendetails} from './kundendetails/kundendetails.model';
 import {Kunde} from './kundenuebersicht/kunde.model';
 
@@ -21,4 +22,5 @@ export class RestService {
 
   getKunde(kundennummer: string): Observable<Kundendetails> { return this.http.get<Kundendetails>(this.kundenUrl + kundennummer, {observe: 'body'}); }
 
+  getKonto(kontonummer: string): Observable<Kontodetails> { return this.http.get<Kontodetails>(this.kontenUrl + kontonummer, {observe: 'body'}); }
 }

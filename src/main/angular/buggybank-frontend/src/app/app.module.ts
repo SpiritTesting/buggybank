@@ -10,12 +10,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KundenuebersichtComponent } from './kundenuebersicht/kundenuebersicht.component';
 import { KundendetailsComponent } from './kundendetails/kundendetails.component';
+import { KontodetailsComponent } from './kontodetails/kontodetails.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     KundenuebersichtComponent,
-    KundendetailsComponent
+    KundendetailsComponent,
+    KontodetailsComponent
   ],
   imports: [
     BrowserModule,
