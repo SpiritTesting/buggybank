@@ -30,4 +30,7 @@ export class RestService {
   postZahlung(quelle: string, ziel: string, betrag: string, zweck: string) { return this.http.post(this.kontenUrl + quelle + "/" + ziel, {zweck, betrag}, {observe: 'response'}); }
 
   postKunde(name: string) { return this.http.post(this.kundenUrl, {name}, {observe: 'response'}); }
+
+  postKonto(kundennummer: string) { return this.http.post(this.kontenUrl, {kundennummer}, {observe: 'response'}); }
+
 }

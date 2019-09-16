@@ -22,4 +22,7 @@ export class KundendetailsComponent implements OnInit {
     });
   }
 
+  neuesKonto() {
+    this.restService.postKonto(this.kunde.kundennummer).subscribe(() => { this.ngOnInit(); });
+  }
 }
