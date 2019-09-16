@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {TableModule} from 'primeng/table';
@@ -15,6 +16,7 @@ import { KundendetailsComponent } from './kundendetails/kundendetails.component'
 import { KontodetailsComponent } from './kontodetails/kontodetails.component';
 import { KontouebersichtComponent } from './kontouebersicht/kontouebersicht.component';
 import { ZahlungsanweisungComponent } from './zahlungsanweisung/zahlungsanweisung.component';
+import { NeuerKundeComponent } from './neuer-kunde/neuer-kunde.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { ZahlungsanweisungComponent } from './zahlungsanweisung/zahlungsanweisun
     KundendetailsComponent,
     KontodetailsComponent,
     KontouebersichtComponent,
-    ZahlungsanweisungComponent
+    ZahlungsanweisungComponent,
+    NeuerKundeComponent
   ],
             imports: [
               BrowserModule,
@@ -34,7 +37,8 @@ import { ZahlungsanweisungComponent } from './zahlungsanweisung/zahlungsanweisun
               TableModule,
               ButtonModule,
               InputTextModule,
-              DropdownModule
+              DropdownModule,
+              DialogModule
             ],
   providers: [],
   bootstrap: [AppComponent]

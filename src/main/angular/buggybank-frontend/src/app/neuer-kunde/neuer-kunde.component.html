@@ -1,0 +1,9 @@
+<p-dialog [modal]="true" [(visible)]="display" [baseZIndex]="10000">
+  <p>Die BuggyBank AG möchte Sie als neuen Kunden willkommen heißen.</p>
+  <p>Wie lautet bitte Ihr Name?</p>
+  <input pInputText type="text" required [(ngModel)]="name">
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="addKunde()" label="Speichern"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Abbrechen" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>

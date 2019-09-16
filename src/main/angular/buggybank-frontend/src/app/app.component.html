@@ -1,4 +1,7 @@
 <p-button label="Kundenübersicht" icon="pi pi-users" routerLink="kunden"></p-button>
 <p-button label="Kontoübersicht" icon="pi pi-dollar" routerLink="konten"></p-button>
+<p-button label="Registrieren" icon="pi pi-user-plus" (onClick)="neuerKunde.display = true"></p-button>
+
+<spirit-neuer-kunde #neuerKunde></spirit-neuer-kunde>
 
 <router-outlet></router-outlet>
