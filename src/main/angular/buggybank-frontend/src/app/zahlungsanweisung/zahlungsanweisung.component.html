@@ -1,0 +1,21 @@
+<div class="ui-g">
+  <div class="ui-md-12"><h2>Zahlung anweisen</h2></div>
+</div>
+<div class="ui-g">
+  <div class="ui-md-4">
+    Empfänger:
+    <p-dropdown [options]="konten" placeholder="bitte wählen" [(ngModel)]="ziel"></p-dropdown>
+  </div>
+  <div class="ui-md-4">
+    Betrag:
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">EUR</span>
+      <input type="number" pInputText [(ngModel)]="euros" min="0" max="99999">
+      <span class="ui-inputgroup-addon">.</span>
+      <input type="number" pInputText [(ngModel)]="cents" min="0" max="99">
+    </div>
+  </div>
+  <div class="ui-md-4">
+    <p-button icon="pi pi-check" label="Zahlung anweisen" (onClick)="zahlungAnweisen()"></p-button>
+  </div>
+</div>

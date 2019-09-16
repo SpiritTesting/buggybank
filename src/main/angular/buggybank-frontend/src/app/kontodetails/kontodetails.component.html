@@ -2,6 +2,8 @@
 <p>Saldo {{ konto?.betrag }}</p>
 <p>Kreditrahmen {{ konto?.kreditrahmen }}</p>
 
+<spirit-zahlungsanweisung *ngIf="!!konto" [quelle]="konto.kontonummer" (onPayment)="reload()"></spirit-zahlungsanweisung>
+
 <p-table *ngIf="konto" [value]="konto.zahlungen">
   <ng-template pTemplate="header">
     <tr>

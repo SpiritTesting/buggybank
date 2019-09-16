@@ -48,3 +48,8 @@ spring:
   h2:
     console:
       enabled: true
+buggybank:
+  zinsen:
+    delay:
+      initial: 86400000
+      rate: 86400000

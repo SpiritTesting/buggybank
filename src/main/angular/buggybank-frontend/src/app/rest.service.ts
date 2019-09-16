@@ -26,4 +26,6 @@ export class RestService {
   getKonto(kontonummer: string): Observable<Kontodetails> { return this.http.get<Kontodetails>(this.kontenUrl + kontonummer, {observe: 'body'}); }
 
   getKonten(): Observable<Konto[]> { return this.http.get<Konto[]>(this.kontenUrl, {observe: 'body'}); }
+
+  postZahlung(quelle: string, ziel: string, betrag: string) { return this.http.post(this.kontenUrl + quelle + "/" + ziel, {betrag}, {observe: 'response'}); }
 }

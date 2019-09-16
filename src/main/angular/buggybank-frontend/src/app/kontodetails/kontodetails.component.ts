@@ -20,4 +20,7 @@ export class KontodetailsComponent implements OnInit {
     });
   }
 
+  reload() {
+    this.ngOnInit();
+  }
 }
