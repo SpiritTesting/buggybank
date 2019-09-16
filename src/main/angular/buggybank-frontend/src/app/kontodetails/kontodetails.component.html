@@ -11,6 +11,7 @@
       <th>Von</th>
       <th>An</th>
       <th>Betrag</th>
+      <th>Verwendungszweck</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-zahlung>
@@ -19,6 +20,7 @@
       <td>{{ zahlung.quelle }}</td>
       <td>{{ zahlung.ziel }}</td>
       <td>{{ zahlung.betrag }}</td>
+      <td>{{ zahlung.zweck }}</td>
     </tr>
   </ng-template>
 </p-table>

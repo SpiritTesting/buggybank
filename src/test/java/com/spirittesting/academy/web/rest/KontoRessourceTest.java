@@ -10,6 +10,7 @@ import com.spirittesting.academy.service.ZahlungsService;
 import com.spirittesting.academy.web.rest.dto.KontoDTO;
 import com.spirittesting.academy.web.rest.dto.KontoDetailsDTO;
 import com.spirittesting.academy.web.rest.dto.KundeDTO;
+import com.spirittesting.academy.web.rest.dto.ZahlungDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -101,8 +102,11 @@ class KontoRessourceTest {
 
     @Test
     void addZahlung() {
-        kontoRessource.addZahlung("1", "2", new Euro(100));
-        Mockito.verify(zahlungsService).addZahlung("1", "2", new Euro(100));
+        ZahlungDTO dto = new ZahlungDTO();
+        dto.setBetrag(new Euro(100));
+        dto.setZweck("Hallo Welt");
+        kontoRessource.addZahlung("1", "2", dto);
+        Mockito.verify(zahlungsService).addZahlung("1", "2", new Euro(100), "Hallo Welt");
         Mockito.verifyNoMoreInteractions(zahlungsService);
     }
 }

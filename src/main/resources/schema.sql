@@ -28,3 +28,6 @@ ALTER TABLE zahlung
 ALTER TABLE zahlung
     ADD CONSTRAINT IF NOT EXISTS fk_ziel
     FOREIGN KEY (ziel) REFERENCES konto (kontonummer);
+
+ALTER TABLE zahlung
+    ADD COLUMN IF NOT EXISTS zweck VARCHAR2(255);

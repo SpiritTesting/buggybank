@@ -14,6 +14,7 @@ export class ZahlungsanweisungComponent implements OnInit {
   ziel: string  = '';
   euros: number = 0;
   cents: number = 0;
+  zweck: string = '';
 
   @Output()
   onPayment: EventEmitter<void> = new EventEmitter<void>();
@@ -27,7 +28,7 @@ export class ZahlungsanweisungComponent implements OnInit {
   }
 
   zahlungAnweisen() {
-    this.restService.postZahlung(this.quelle, this.ziel, 'EUR ' + this.euros + '.' + this.cents).subscribe(() => {
+    this.restService.postZahlung(this.quelle, this.ziel, 'EUR ' + this.euros + '.' + this.cents, this.zweck).subscribe(() => {
       this.onPayment.emit();
     });
   }

@@ -14,36 +14,47 @@ import java.util.List;
 @Service
 public class ZahlungsService {
 
-    private KontoService kontoService;
-    private ZahlungRepository zahlungRepository;
+  private KontoService kontoService;
+  private ZahlungRepository zahlungRepository;
 
-    public ZahlungsService(KontoService kontoService, ZahlungRepository zahlungRepository) {
-        this.kontoService = kontoService;
-        this.zahlungRepository = zahlungRepository;
+  public ZahlungsService(KontoService kontoService, ZahlungRepository zahlungRepository) {
+    this.kontoService = kontoService;
+    this.zahlungRepository = zahlungRepository;
+  }
+
+  @Transactional
+  public Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag, String zweck) {
+    return addZahlung(quellKontonummer, zielKontonummer, betrag, zweck, false);
+  }
+
+  @Transactional
+  public Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag) {
+    return addZahlung(quellKontonummer, zielKontonummer, betrag, false);
+  }
+
+  @Transactional
+  public List<Zahlung> getZahlungen(String kontonummer) {
+    final List<Zahlung> zahlungen = zahlungRepository.findAllByQuelle_Kontonummer(kontonummer);
+    zahlungen.addAll(zahlungRepository.findAllByZiel_Kontonummer(kontonummer));
+    return zahlungen;
+  }
+
+  Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag, boolean ignoreKreditrahmen) {
+    return addZahlung(quellKontonummer, zielKontonummer, betrag, null, ignoreKreditrahmen);
+  }
+
+  @Transactional
+  Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag,
+                     String zweck, boolean ignoreKreditrahmen) {
+    Konto quelle = kontoService.getKonto(quellKontonummer);
+    Konto ziel = kontoService.getKonto(zielKontonummer);
+    Zahlung zahlung = new Zahlung(quelle, ziel, betrag, zweck);
+
+    if (!ignoreKreditrahmen && kontoService.getBetrag(quelle).subtract(betrag).compareTo(quelle.getKreditrahmen().multiply(BigDecimal.valueOf(-1))) < 0) {
+      throw new KontoDeckungException(quellKontonummer);
     }
 
-    @Transactional
-    public Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag) {
-        return addZahlung(quellKontonummer, zielKontonummer, betrag, false);
-    }
-
-    @Transactional
-    public List<Zahlung> getZahlungen(String kontonummer) {
-        final List<Zahlung> zahlungen = zahlungRepository.findAllByQuelle_Kontonummer(kontonummer);
-        zahlungen.addAll(zahlungRepository.findAllByZiel_Kontonummer(kontonummer));
-        return zahlungen;
-    }
-
-    Zahlung addZahlung(String quellKontonummer, String zielKontonummer, Euro betrag, boolean ignoreKreditrahmen) {
-        Konto quelle = kontoService.getKonto(quellKontonummer);
-        Konto ziel = kontoService.getKonto(zielKontonummer);
-        Zahlung zahlung = new Zahlung(quelle, ziel, betrag);
-
-        if (!ignoreKreditrahmen && kontoService.getBetrag(quelle).subtract(betrag).compareTo(quelle.getKreditrahmen().multiply(BigDecimal.valueOf(-1))) < 0) {
-            throw new KontoDeckungException(quellKontonummer);
-        }
-
-        return zahlungRepository.save(zahlung);
-    }
+    return zahlungRepository.save(zahlung);
+  }
 
 }

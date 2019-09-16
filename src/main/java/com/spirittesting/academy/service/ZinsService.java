@@ -54,7 +54,8 @@ public class ZinsService {
             String quelle = saldo.isNegative() ? konto.getKontonummer() : ZINSKONTO;
             String ziel = saldo.isNegative() ? ZINSKONTO : konto.getKontonummer();
 
-            zahlungsService.addZahlung(quelle, ziel, zinsBetrag.absolute(), true);
+            zahlungsService.addZahlung(quelle, ziel, zinsBetrag.absolute(),
+              saldo.isNegative() ? "Sollzinsen für in Anspruch genommenen Kredit" : "Zinsen auf Guthaben",  true);
         }
         log.info("Zinsen verrechnet");
     }

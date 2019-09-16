@@ -72,8 +72,7 @@ class KontoRessourceTestIT {
 
     @Test
     void addZahlung() throws Exception {
-        mvc.perform(post("/api/konto/2/1").contentType(MediaType.APPLICATION_JSON).content("{\"betrag\":\"EUR 200" +
-                ".00\"}"))
+        mvc.perform(post("/api/konto/2/1").contentType(MediaType.APPLICATION_JSON).content("{\"betrag\":\"EUR 200.00\"}"))
                 .andExpect(status().isOk());
         assertEquals(Euro.ZERO, kontoService.getBetrag("1"));
         assertEquals(Euro.ZERO, kontoService.getBetrag("2"));
