@@ -51,6 +51,8 @@ class KundeRessourceTest {
 
         Mockito.lenient().when(kontoService.getBetrag(eq("1"))).thenReturn(new Euro(10, 50));
         Mockito.lenient().when(kontoService.getBetrag(eq("2"))).thenReturn(new Euro(-50, 25));
+      Mockito.lenient().when(kontoService.getBetrag(eq(konten.get(0)))).thenReturn(new Euro(10, 50));
+      Mockito.lenient().when(kontoService.getBetrag(eq(konten.get(1)))).thenReturn(new Euro(-50, 25));
 
         Mockito.lenient().when(kundeService.addKunde(any())).thenReturn(new Kunde("4", "Paul"));
     }
@@ -70,7 +72,7 @@ class KundeRessourceTest {
         final KundeDetailsDTO dto = kundeRessource.getKunde("1");
         assertEquals("Hannes", dto.getName());
         assertEquals("1", dto.getKundennummer());
-        assertEquals(new TreeSet<>(Arrays.asList("1","2")), dto.getKonten());
+        assertEquals(2, dto.getKonten().size());
         assertEquals(new Euro(-39, 75), dto.getSaldo());
     }
 

@@ -11,13 +11,13 @@ public class KundeDetailsDTO {
 
     private String kundennummer;
     private String name;
-    private SortedSet<String> konten = new TreeSet<>();
+    private SortedSet<KontoDTO> konten = new TreeSet<>();
     private Euro saldo;
 
     KundeDetailsDTO() {
     }
 
-    public KundeDetailsDTO(String kundennummer, String name, SortedSet<String> konten, Euro saldo) {
+    public KundeDetailsDTO(String kundennummer, String name, SortedSet<KontoDTO> konten, Euro saldo) {
         this.kundennummer = kundennummer;
         this.name = name;
         this.konten = konten;
@@ -40,11 +40,11 @@ public class KundeDetailsDTO {
         this.name = name;
     }
 
-    public SortedSet<String> getKonten() {
+    public SortedSet<KontoDTO> getKonten() {
         return konten;
     }
 
-    public void setKonten(SortedSet<String> konten) {
+    public void setKonten(SortedSet<KontoDTO> konten) {
         this.konten = konten;
     }
 

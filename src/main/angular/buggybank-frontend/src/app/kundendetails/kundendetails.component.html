@@ -6,5 +6,5 @@
 <h2>Konten</h2>
 <button (click)="neuesKonto()" icon="pi pi-plus" label="Konto anlegen" pButton></button>
 <div *ngFor="let konto of kunde?.konten">
-  <a [routerLink]="'/konten/' + konto">{{ konto }}</a>
+  <a [routerLink]="'/konten/' + konto.kontonummer">{{ konto.name ? konto.name + ' (' + konto.kontonummer + ')' : konto.kontonummer }}</a>
 </div>

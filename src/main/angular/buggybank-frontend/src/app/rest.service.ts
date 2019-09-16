@@ -33,4 +33,6 @@ export class RestService {
 
   postKonto(kundennummer: string) { return this.http.post(this.kontenUrl, {kundennummer}, {observe: 'response'}); }
 
+  putKonto(kontonummer: string, details: Konto) { return this.http.put<Kontodetails>(this.kontenUrl + kontonummer, details, {observe: 'body'}); }
+
 }

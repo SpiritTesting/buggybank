@@ -2,12 +2,14 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Kontonummer</th>
+      <th>Bezeichnung</th>
       <th>Kontostand</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-konto>
     <tr>
       <td><a [routerLink]="konto.kontonummer">{{ konto.kontonummer }}</a></td>
+      <td>{{ konto.name }}</td>
       <td>{{ konto.betrag }}</td>
     </tr>
   </ng-template>

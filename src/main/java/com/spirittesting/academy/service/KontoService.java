@@ -16,59 +16,66 @@ import java.util.Set;
 @Service
 public class KontoService {
 
-    private KontonummerService kontonummerService;
-    private KontoRepository kontoRepository;
-    private ZahlungRepository zahlungRepository;
+  private KontonummerService kontonummerService;
+  private KontoRepository kontoRepository;
+  private ZahlungRepository zahlungRepository;
 
-    public KontoService(KontonummerService kontonummerService, KontoRepository kontoRepository, ZahlungRepository zahlungRepository) {
-        this.kontonummerService = kontonummerService;
-        this.kontoRepository = kontoRepository;
-        this.zahlungRepository = zahlungRepository;
-    }
+  public KontoService(KontonummerService kontonummerService, KontoRepository kontoRepository, ZahlungRepository zahlungRepository) {
+    this.kontonummerService = kontonummerService;
+    this.kontoRepository = kontoRepository;
+    this.zahlungRepository = zahlungRepository;
+  }
 
-    public Konto addKonto(Kunde kunde) {
-        if (kunde == null) throw new IllegalArgumentException("Kunde darf nicht NULL sein");
-        Konto konto = new Konto(kontonummerService.next(), kunde);
-        konto = kontoRepository.save(konto);
-        return konto;
-    }
+  public Konto addKonto(Kunde kunde) {
+    if (kunde == null) throw new IllegalArgumentException("Kunde darf nicht NULL sein");
+    Konto konto = new Konto(kontonummerService.next(), kunde);
+    konto = kontoRepository.save(konto);
+    return konto;
+  }
 
-    Konto addKonto(String kontonummer) {
-        Konto konto = new Konto(kontonummer, new Kunde("000", "Buggybank"));
-        konto = kontoRepository.save(konto);
-        return konto;
-    }
+  Konto addKonto(String kontonummer) {
+    Konto konto = new Konto(kontonummer, new Kunde("000", "Buggybank"));
+    konto = kontoRepository.save(konto);
+    return konto;
+  }
 
-    public Konto getKonto(String kontonummer) throws KontoNotFoundException {
-        return kontoRepository.findById(kontonummer).orElseThrow(() -> new KontoNotFoundException(kontonummer));
-    }
+  public Konto getKonto(String kontonummer) throws KontoNotFoundException {
+    return kontoRepository.findById(kontonummer).orElseThrow(() -> new KontoNotFoundException(kontonummer));
+  }
 
-    public Set<Konto> getKonten(String kundennummer) {
-        return kontoRepository.findAllByKunde_Kundennummer(kundennummer);
-    }
+  public Set<Konto> getKonten(String kundennummer) {
+    return kontoRepository.findAllByKunde_Kundennummer(kundennummer);
+  }
 
-    @Transactional
-    public void setKreditrahmen(String kontonummer, Euro kreditrahmen) {
-        Konto konto = getKonto(kontonummer);
-        konto.setKreditrahmen(kreditrahmen);
-        kontoRepository.save(konto);
-    }
+  @Transactional
+  public void setKreditrahmen(String kontonummer, Euro kreditrahmen) {
+    Konto konto = getKonto(kontonummer);
+    konto.setKreditrahmen(kreditrahmen);
+    kontoRepository.save(konto);
+  }
 
-    @Transactional
-    public Euro getBetrag(Konto konto) {
-        return getBetrag(konto.getKontonummer());
-    }
+  @Transactional
+  public Euro getBetrag(Konto konto) {
+    return getBetrag(konto.getKontonummer());
+  }
 
-    @Transactional
-    public Euro getBetrag(String kontonummer) {
-        final Euro betrag =
-                zahlungRepository.findAllByZiel_Kontonummer(kontonummer).stream().map(Zahlung::getBetrag).reduce(Euro::add).orElse(Euro.ZERO).subtract(zahlungRepository.findAllByQuelle_Kontonummer(kontonummer).stream().map(Zahlung::getBetrag).reduce(Euro::add).orElse(Euro.ZERO));
-        return betrag;
-    }
+  @Transactional
+  public Euro getBetrag(String kontonummer) {
+    final Euro betrag =
+      zahlungRepository.findAllByZiel_Kontonummer(kontonummer).stream().map(Zahlung::getBetrag).reduce(Euro::add).orElse(Euro.ZERO).subtract(zahlungRepository.findAllByQuelle_Kontonummer(kontonummer).stream().map(Zahlung::getBetrag).reduce(Euro::add).orElse(Euro.ZERO));
+    return betrag;
+  }
 
-    @Transactional
-    public Set<Konto> getAllKonten() {
-        return new HashSet<>(kontoRepository.findAll());
-    }
+  @Transactional
+  public Set<Konto> getAllKonten() {
+    return new HashSet<>(kontoRepository.findAll());
+  }
+
+  @Transactional
+  public Konto setName(String kontonummer, String name) {
+    final Konto konto = getKonto(kontonummer);
+    konto.setName(name);
+    return kontoRepository.save(konto);
+  }
 
 }

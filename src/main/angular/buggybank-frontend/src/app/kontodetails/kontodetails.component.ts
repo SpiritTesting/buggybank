@@ -23,4 +23,10 @@ export class KontodetailsComponent implements OnInit {
   reload() {
     this.ngOnInit();
   }
+
+  setName() {
+    this.restService.putKonto(this.konto.kontonummer, { kontonummer: this.konto.kontonummer, betrag: null, name: this.konto.name }).subscribe((data) => {
+      this.konto = data;
+    });
+  }
 }

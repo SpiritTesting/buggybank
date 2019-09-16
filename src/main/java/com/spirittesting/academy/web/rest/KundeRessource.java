@@ -37,11 +37,12 @@ public class KundeRessource {
     @GetMapping("{kundennummer}")
     public KundeDetailsDTO getKunde(@PathVariable String kundennummer) {
         Kunde kunde = kundeService.findByKundennummer(kundennummer);
-        SortedSet<String> kontonummern =
-                kontoService.getKonten(kundennummer).stream().map(Konto::getKontonummer).collect(Collectors.toCollection(TreeSet::new));
+        SortedSet<KontoDTO> kontoDTOS =
+                kontoService.getKonten(kundennummer).stream().map(k -> new KontoDTO(k.getKontonummer(),
+                  kontoService.getBetrag(k), k.getName())).collect(Collectors.toCollection(TreeSet::new));
         Euro gesamtsaldo =
-                kontonummern.stream().map(kontonummer -> kontoService.getBetrag(kontonummer)).reduce(Euro::add).orElse(Euro.ZERO);
-        return new KundeDetailsDTO(kundennummer, kunde.getName(), kontonummern, gesamtsaldo);
+                kontoDTOS.stream().map(KontoDTO::getBetrag).reduce(Euro::add).orElse(Euro.ZERO);
+        return new KundeDetailsDTO(kundennummer, kunde.getName(), kontoDTOS, gesamtsaldo);
     }
 
     @PostMapping

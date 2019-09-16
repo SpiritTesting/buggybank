@@ -1,4 +1,11 @@
-<h1>Konto {{ konto?.kontonummer }}</h1>
+<h1>{{konto?.name ? konto.name : 'Konto'}} {{ konto?.kontonummer }}</h1>
+
+<div class="ui-inputgroup">
+  Bezeichnung:
+  <input type="text" pInputText placeholder="z.B. Girokonto" [(ngModel)]="konto.name">
+  <button pButton type="button" icon="pi pi-check" class="ui-button-success" (click)="setName()"></button>
+</div>
+
 <p>Saldo {{ konto?.betrag }}</p>
 <p>Kreditrahmen {{ konto?.kreditrahmen }}</p>
 

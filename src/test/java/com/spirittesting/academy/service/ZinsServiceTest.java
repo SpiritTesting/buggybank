@@ -57,13 +57,14 @@ class ZinsServiceTest {
     @Test
     void berechneHabenzinsen() {
         zinsService.berechneZinsen();
-        Mockito.verify(zahlungsService).addZahlung("000", haben.getKontonummer(), new Euro(1), true);
+        Mockito.verify(zahlungsService).addZahlung("000", haben.getKontonummer(), new Euro(1), "Zinsen auf Guthaben",
+          true);
     }
 
     @Test
     void berechneSollzinsen() {
         zinsService.berechneZinsen();
-        Mockito.verify(zahlungsService).addZahlung(soll.getKontonummer(), "000", new Euro(10), true);
+        Mockito.verify(zahlungsService).addZahlung(soll.getKontonummer(), "000", new Euro(10), "Sollzinsen für in Anspruch genommenen Kredit", true);
     }
 
     @Test
