@@ -25,7 +25,7 @@
     <tr>
       <td>{{ zahlung.datum }}</td>
       <td>{{ zahlung.quelle }}</td>
-      <td>{{ zahlung.ziel }}</td>
+      <td>{{ zahlung.ziel === '000' ? 'siehe Verwendungszweck' : zahlung.ziel }}</td>
       <td>{{ zahlung.betrag }}</td>
       <td>{{ zahlung.zweck }}</td>
     </tr>

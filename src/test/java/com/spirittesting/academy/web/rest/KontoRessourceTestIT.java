@@ -41,8 +41,8 @@ class KontoRessourceTestIT {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].kontonummer", is("000")))
-                .andExpect(jsonPath("$[1].kontonummer", is("1")))
-                .andExpect(jsonPath("$[2].kontonummer", is("2")))
+                .andExpect(jsonPath("$[1].kontonummer", is("12340001")))
+                .andExpect(jsonPath("$[2].kontonummer", is("12340002")))
                 .andExpect(jsonPath("$[0].betrag", is("EUR 0.00")))
                 .andExpect(jsonPath("$[1].betrag", is("EUR -200.00")))
                 .andExpect(jsonPath("$[2].betrag", is("EUR 200.00")));
@@ -51,20 +51,21 @@ class KontoRessourceTestIT {
     @Test
     void getKonto() throws Exception {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        mvc.perform(get("/api/konto/1").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/konto/12340001").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.kontonummer", is("1")))
+                .andExpect(jsonPath("$.kontonummer", is("12340001")))
                 .andExpect(jsonPath("$.betrag", is("EUR -200.00")))
                 .andExpect(jsonPath("$.kreditrahmen", is("EUR 200.00")))
                 .andExpect(jsonPath("$.zahlungen", hasSize(1)))
-                .andExpect(jsonPath("$.zahlungen[0].quelle", is("1")))
-                .andExpect(jsonPath("$.zahlungen[0].ziel", is("2")))
+                .andExpect(jsonPath("$.zahlungen[0].quelle", is("12340001")))
+                .andExpect(jsonPath("$.zahlungen[0].ziel", is("12340002")))
                 .andExpect(jsonPath("$.zahlungen[0].betrag", is("EUR 200.00")))
                 .andExpect(jsonPath("$.zahlungen[0].datum", is(date)));
     }
 
     @Test void addKonto() throws Exception {
-        mvc.perform(post("/api/konto").contentType(MediaType.APPLICATION_JSON).content("{\"kundennummer\":\"2\"}"))
+        mvc.perform(post("/api/konto").contentType(MediaType.APPLICATION_JSON).content("{\"kundennummer\":\"2" +
+          "\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.kontonummer", is("12340001")))
                 .andExpect(jsonPath("$.betrag", is("EUR 0.00")));
@@ -72,9 +73,10 @@ class KontoRessourceTestIT {
 
     @Test
     void addZahlung() throws Exception {
-        mvc.perform(post("/api/konto/2/1").contentType(MediaType.APPLICATION_JSON).content("{\"betrag\":\"EUR 200.00\"}"))
+        mvc.perform(post("/api/konto/12340002/12340001").contentType(MediaType.APPLICATION_JSON).content("{\"betrag" +
+          "\":\"EUR 200.00\"}"))
                 .andExpect(status().isOk());
-        assertEquals(Euro.ZERO, kontoService.getBetrag("1"));
-        assertEquals(Euro.ZERO, kontoService.getBetrag("2"));
+        assertEquals(Euro.ZERO, kontoService.getBetrag("12340001"));
+        assertEquals(Euro.ZERO, kontoService.getBetrag("12340002"));
     }
 }

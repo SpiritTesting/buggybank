@@ -36,7 +36,7 @@ class KontoServiceTestIT {
 
     @Test
     void getKonto() {
-        assertNotNull(kontoService.getKonto("2"));
+        assertNotNull(kontoService.getKonto("12340002"));
     }
 
     @Test

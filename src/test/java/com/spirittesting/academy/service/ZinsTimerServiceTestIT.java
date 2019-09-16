@@ -37,8 +37,8 @@ class ZinsTimerServiceTestIT {
     @Autowired
     KundeService kundeService;
 
-    String kontoHannes = "1";
-    String kontoWerner = "2";
+    String kontoHannes = "12340001";
+    String kontoWerner = "12340002";
 
     @Test
     @Sql({"/Kunden.sql", "/Maximalzahlung.sql"})

@@ -27,8 +27,8 @@ class ZahlungsServiceTestIT {
     @Autowired
     KundeService kundeService;
 
-    static String kontoHannes = "1";
-    static String kontoWerner = "2";
+    static String kontoHannes = "12340001";
+    static String kontoWerner = "12340002";
 
     @Autowired
     KundeRepository kundeRepository;

@@ -33,19 +33,19 @@ class ZahlungsServiceTest {
     void init(@Mock KontoService kontoService, @Mock ZahlungRepository zahlungRepository) {
         this.zahlungRepository = zahlungRepository;
         zahlungsService = new ZahlungsService(kontoService, zahlungRepository);
-        quelle = new Konto("1", new Kunde("1", "Hannes"));
-        ziel = new Konto("2", new Kunde("2", "Werner"));
+        quelle = new Konto("12340001", new Kunde("1", "Hannes"));
+        ziel = new Konto("12340002", new Kunde("2", "Werner"));
 
-        Mockito.lenient().when(kontoService.getKonto(eq("1"))).thenReturn(quelle);
-        Mockito.lenient().when(kontoService.getKonto(eq("2"))).thenReturn(ziel);
-        Mockito.lenient().when(kontoService.getKonto(eq("3"))).thenThrow(new KontoNotFoundException("3"));
+        Mockito.lenient().when(kontoService.getKonto(eq("12340001"))).thenReturn(quelle);
+        Mockito.lenient().when(kontoService.getKonto(eq("12340002"))).thenReturn(ziel);
+        Mockito.lenient().when(kontoService.getKonto(eq("12340003"))).thenThrow(new KontoNotFoundException("12340003"));
         Mockito.lenient().when(zahlungRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
         Mockito.lenient().when(kontoService.getBetrag(any(Konto.class))).thenReturn(new Euro(100));
     }
 
     @Test
     void addZahlung() {
-        Zahlung zahlung = zahlungsService.addZahlung("1", "2", new Euro(5, 0));
+        Zahlung zahlung = zahlungsService.addZahlung("12340001", "12340002", new Euro(5, 0));
         assertEquals(quelle, zahlung.getQuelle());
         assertEquals(ziel, zahlung.getZiel());
         assertEquals("EUR 5.00", zahlung.getBetrag().toString());
@@ -55,28 +55,28 @@ class ZahlungsServiceTest {
 
     @Test
     void addZahlungQuelleNichtGefunden() {
-        assertThrows(KontoNotFoundException.class, () -> zahlungsService.addZahlung("3", "2", new Euro(5, 0)));
+        assertThrows(KontoNotFoundException.class, () -> zahlungsService.addZahlung("12340003", "12340002", new Euro(5, 0)));
     }
 
     @Test
     void addZahlungZielNichtGefunden() {
-        assertThrows(KontoNotFoundException.class, () -> zahlungsService.addZahlung("1", "3", new Euro(5, 0)));
+        assertThrows(KontoNotFoundException.class, () -> zahlungsService.addZahlung("12340001", "12340003", new Euro(5, 0)));
     }
 
     @Test
     void addZahlungDeckungUngenuegend() {
-        assertThrows(KontoDeckungException.class, () -> zahlungsService.addZahlung("1", "2", new Euro(100, 1)));
+        assertThrows(KontoDeckungException.class, () -> zahlungsService.addZahlung("12340001", "12340002", new Euro(100, 1)));
     }
 
     @Test
     void addZahlungMitKreditrahmen() {
         quelle.setKreditrahmen(new Euro(100,0));
-        zahlungsService.addZahlung("1", "2", new Euro(200, 0));
+        zahlungsService.addZahlung("12340001", "12340002", new Euro(200, 0));
     }
 
     @Test
     void addZahlungMitKreditrahmenUndUngenuegenderDeckung() {
         quelle.setKreditrahmen(new Euro(100, 0));
-        assertThrows(KontoDeckungException.class, () -> zahlungsService.addZahlung("1", "2", new Euro(200, 1)));
+        assertThrows(KontoDeckungException.class, () -> zahlungsService.addZahlung("12340001", "12340002", new Euro(200, 1)));
     }
 }

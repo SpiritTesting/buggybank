@@ -46,7 +46,7 @@ class KundeRessourceTestIT {
       .andExpect(jsonPath("$.kundennummer", is("1")))
       .andExpect(jsonPath("$.name", is("Hannes")))
       .andExpect(jsonPath("$.konten", hasSize(1)))
-      .andExpect(jsonPath("$.konten[0].kontonummer", is("1")))
+      .andExpect(jsonPath("$.konten[0].kontonummer", is("12340001")))
       .andExpect(jsonPath("$.konten[0].betrag", is("EUR -200.00")))
       .andExpect(jsonPath("$.konten[0].name", isEmptyOrNullString()))
       .andExpect(jsonPath("$.saldo", is("EUR -200.00")));
