@@ -11,13 +11,15 @@ import { AppComponent } from './app.component';
 import { KundenuebersichtComponent } from './kundenuebersicht/kundenuebersicht.component';
 import { KundendetailsComponent } from './kundendetails/kundendetails.component';
 import { KontodetailsComponent } from './kontodetails/kontodetails.component';
+import { KontouebersichtComponent } from './kontouebersicht/kontouebersicht.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     KundenuebersichtComponent,
     KundendetailsComponent,
-    KontodetailsComponent
+    KontodetailsComponent,
+    KontouebersichtComponent
   ],
   imports: [
     BrowserModule,
