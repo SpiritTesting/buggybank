@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {MessageService} from 'primeng/api';
 import {RestService} from '../rest.service';
 import {Kontodetails} from './kontodetails.model';
 
@@ -11,7 +12,7 @@ import {Kontodetails} from './kontodetails.model';
 export class KontodetailsComponent implements OnInit {
   konto: Kontodetails;
 
-  constructor(private route: ActivatedRoute, private restService: RestService) { }
+  constructor(private route: ActivatedRoute, private restService: RestService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -27,7 +28,8 @@ export class KontodetailsComponent implements OnInit {
   setName() {
     this.restService.putKonto(this.konto.kontonummer, { kontonummer: this.konto.kontonummer, betrag: null, name: this.konto.name }).subscribe((data) => {
       this.konto = data;
-    });
+      this.messageService.add({severity: 'success', summary: 'Kontobezeichnung geändert'});
+    }, error => {this.messageService.add({severity: 'error', summary: 'Kontobezeichnung nicht geändert'});});
   }
 
   betragClass(betrag: string): string {

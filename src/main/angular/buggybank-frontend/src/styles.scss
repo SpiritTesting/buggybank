@@ -34,14 +34,6 @@ body {
     font-weight: bold;
   }
 
-  a:after {
-    font-family: 'primeicons';
-    color: $spirit-red;
-    speak: none;
-    display: inline-block;
-    content: "\e91b";
-  }
-
   a:hover {
     color: $spirit-orange;
   }

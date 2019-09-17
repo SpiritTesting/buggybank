@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Kunde} from '../kundenuebersicht/kunde.model';
+import {MessageService} from 'primeng/api';
 import {RestService} from '../rest.service';
 import {Kundendetails} from './kundendetails.model';
 
 @Component({
-  selector: 'spirit-kundendetails',
-  templateUrl: './kundendetails.component.html',
-  styleUrls: ['./kundendetails.component.scss']
-})
+             selector: 'spirit-kundendetails',
+             templateUrl: './kundendetails.component.html',
+             styleUrls: ['./kundendetails.component.scss']
+           })
 export class KundendetailsComponent implements OnInit {
 
   kunde: Kundendetails;
 
-  constructor(private route: ActivatedRoute, private restService: RestService) { }
+  constructor(private route: ActivatedRoute, private restService: RestService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -23,7 +23,12 @@ export class KundendetailsComponent implements OnInit {
   }
 
   neuesKonto() {
-    this.restService.postKonto(this.kunde.kundennummer).subscribe(() => { this.ngOnInit(); });
+    this.restService.postKonto(this.kunde.kundennummer).subscribe(
+      () => {
+        this.ngOnInit();
+        this.messageService.add({severity: 'success', summary: 'Konto angelegt'});
+      },
+      error => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Konto nicht angelegt'}));
   }
 
   betragClass(betrag: string): string {

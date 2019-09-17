@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SelectItem} from 'primeng/api';
+import {MessageService, SelectItem} from 'primeng/api';
 import {RestService} from '../rest.service';
 
 @Component({
@@ -21,16 +21,32 @@ export class ZahlungsanweisungComponent implements OnInit {
 
   konten: SelectItem[] = [];
 
-  constructor(private restService: RestService) { }
+  constructor(private restService: RestService, private messageService: MessageService) { }
 
   ngOnInit() {
-    this.restService.getKonten().subscribe(konten => this.konten = konten.map(konto => { return {label: konto.kontonummer, value: konto.kontonummer}; }));
+    this.restService.getKonten().subscribe(
+      konten => this.konten = konten.map(konto => {
+
+        return {label: konto.kontonummer, value: konto.kontonummer};
+      })
+    );
   }
 
   zahlungAnweisen() {
-    this.restService.postZahlung(this.quelle, this.ziel, 'EUR ' + this.euros + '.' + this.cents, this.zweck).subscribe(() => {
-      this.onPayment.emit();
-    });
+    this.restService.postZahlung(this.quelle,
+                                 this.ziel,
+                                 'EUR ' + this.euros + '.' + this.cents, this.zweck)
+        .subscribe(() => {
+                     this.messageService.add({severity: 'success', summary: 'Zahlung erfolgreich ausgeführt'});
+                     this.onPayment.emit();
+                   },
+                   error => {
+                     this.messageService.add({
+                                               severity: 'error',
+                                               summary: 'Fehler',
+                                               detail: "Zahlung wird nicht ausgeführt"
+                                             });
+                   });
   }
 
 }

@@ -1,4 +1,4 @@
-<p-panel [header]="(konto?.name ? konto.name : 'Konto') + ' ' + konto?.kontonummer" class="noFooter">
+<p-panel *ngIf="!!konto" [header]="(konto?.name ? konto.name : 'Konto') + ' ' + konto?.kontonummer" class="noFooter">
   <div class="ui-g">
     <div class="ui-md-3">
       <p-panel header="Allgemein">
@@ -11,7 +11,7 @@
             </div>
           </div>
           <div class="ui-md-6">Saldo:</div>
-          <div class="ui-md-6" [ngClass]="betragClass(konto.betrag)">{{ konto?.betrag }}</div>
+          <div class="ui-md-6" [ngClass]="betragClass(konto.betrag)">{{ konto.betrag }}</div>
           <div class="ui-md-6">Kreditlimit:</div>
           <div class="ui-md-6">{{ konto?.kreditrahmen }}</div>
         </div>
