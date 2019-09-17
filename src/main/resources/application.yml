@@ -20,8 +20,9 @@ buggybank:
       soll: 0.1
       haben: 0.01
     delay:
-      initial: 20000
-      rate: 20000
+      # 1 Tag
+      initial: 86400000
+      rate: 86400000
 
 spring:
   datasource:
@@ -51,5 +52,6 @@ spring:
 buggybank:
   zinsen:
     delay:
+      # 1 Tag
       initial: 86400000
       rate: 86400000

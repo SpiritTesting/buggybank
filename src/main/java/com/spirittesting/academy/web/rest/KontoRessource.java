@@ -35,7 +35,7 @@ public class KontoRessource {
 
   @GetMapping
   public List<KontoDTO> getKonten() {
-    return kontoService.getAllKonten().stream().map(konto -> new KontoDTO(konto.getKontonummer(),
+    return kontoService.getAllKonten().stream().filter(konto -> !konto.getKontonummer().equals("000")).map(konto -> new KontoDTO(konto.getKontonummer(),
       kontoService.getBetrag(konto), konto.getName())).sorted().collect(Collectors.toList());
   }
 

@@ -39,13 +39,11 @@ class KontoRessourceTestIT {
     void getKonten() throws Exception {
         mvc.perform(get("/api/konto").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].kontonummer", is("000")))
-                .andExpect(jsonPath("$[1].kontonummer", is("12340001")))
-                .andExpect(jsonPath("$[2].kontonummer", is("12340002")))
-                .andExpect(jsonPath("$[0].betrag", is("EUR 0.00")))
-                .andExpect(jsonPath("$[1].betrag", is("EUR -200.00")))
-                .andExpect(jsonPath("$[2].betrag", is("EUR 200.00")));
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].kontonummer", is("12340001")))
+                .andExpect(jsonPath("$[1].kontonummer", is("12340002")))
+                .andExpect(jsonPath("$[0].betrag", is("EUR -200.00")))
+                .andExpect(jsonPath("$[1].betrag", is("EUR 200.00")));
     }
 
     @Test

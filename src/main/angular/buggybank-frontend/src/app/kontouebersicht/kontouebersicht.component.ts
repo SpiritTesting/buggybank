@@ -10,15 +10,17 @@ import {Konto} from './konto.model';
 export class KontouebersichtComponent implements OnInit {
 
   konten: Konto[] = [];
+  sonderkonto: Konto;
 
   constructor(private restService: RestService) { }
 
   ngOnInit() {
     this.restService.getKonten().subscribe(data => this.konten = data);
+    this.restService.getKonto("000").subscribe(data => this.sonderkonto = data);
   }
 
   sum() {
-    return "EUR " + (this.konten.map(konto => this.toCents(konto.betrag)).reduce((a,b) => a+b, 0) / 100);
+    return "EUR " + (this.konten.map(konto => this.toCents(konto.betrag)).reduce((a,b) => a+b, 0) / 100).toFixed(2);
   }
 
   private toCents(betrag: string): number {
