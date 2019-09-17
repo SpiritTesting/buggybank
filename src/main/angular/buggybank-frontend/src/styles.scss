@@ -1,1 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
+
+$spirit-red: #fd5000;
+$spirit-orange: #ffa200;
+$eigengrau: #16161D;
+$offwhite: #e9e9e2;
+
+html {
+  color: $eigengrau;
+  // background-color: rgba(255, 200, 150, 0.02);
+}
+
+body {
+  background-color: transparent;
+  background-image: radial-gradient(circle farthest-corner, white 80%, $offwhite);
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  line-height: 28px;
+  margin: 2rem;
+
+  button.ui-button {
+    background-color: $spirit-red;
+    border-color: darken($spirit-red, 10%);
+  }
+
+  .ui-button:hover, .ui-button:enabled:hover {
+    background-color: $spirit-orange;
+    border-color: darken($spirit-orange, 10%);
+  }
+
+  a {
+    color: $eigengrau;
+    font-weight: bold;
+  }
+
+  a:after {
+    font-family: 'primeicons';
+    color: $spirit-red;
+    speak: none;
+    display: inline-block;
+    content: "\e91b";
+  }
+
+  a:hover {
+    color: $spirit-orange;
+  }
+
+  .ui-panel {
+    .ui-panel-titlebar {
+      color: white;
+      background-color: transparent;
+      background-image: linear-gradient(to bottom right, $spirit-red, $spirit-red, $spirit-orange, rgba(255, 0, 0, 0));
+    }
+  }
+}
+
+.ui-dropdown {
+  width: 100%;
+}
+
+.betrag {
+  font-weight: bold;
+}
+
+.haben {
+  color: green;
+}
+
+.soll {
+  color: red;
+}
+
+.datum {
+  font-weight: bold;
+}

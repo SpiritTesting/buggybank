@@ -1,10 +1,34 @@
-<h1>{{ kunde?.name }}</h1>
 
-<p>Kundennummer {{ kunde?.kundennummer }}</p>
-<p>Gesamtsaldo {{ kunde?.saldo }}</p>
-
-<h2>Konten</h2>
-<button (click)="neuesKonto()" icon="pi pi-plus" label="Konto anlegen" pButton></button>
-<div *ngFor="let konto of kunde?.konten">
-  <a [routerLink]="'/konten/' + konto.kontonummer">{{ konto.name ? konto.name + ' (' + konto.kontonummer + ')' : konto.kontonummer }}</a>
-</div>
+<p-panel *ngIf="!!kunde" [header]="'Herzlich Willkommen, ' + kunde.name">
+  <div class="ui-g">
+    <div class="ui-md-4">
+      <p-panel header="Ihre Kundendaten">
+        <div class="ui-g">
+          <div class="ui-md-6">Ihr Name:</div>
+          <div class="ui-md-6">{{ kunde.name }}</div>
+          <div class="ui-md-6">Ihre Kundennummer:</div>
+          <div class="ui-md-6">{{ kunde.kundennummer }}</div>
+        </div>
+      </p-panel>
+    </div>
+    <div class="ui-md-4">
+      <p-panel header="Ihre Konten bei uns">
+        <div class="ui-g" *ngFor="let konto of kunde.konten">
+          <div class="ui-md-4"><a [routerLink]="'/konten/' + konto.kontonummer">{{ konto.kontonummer}}</a></div>
+          <div class="ui-md-4">{{ konto.name }}</div>
+          <div class="ui-md-4 betrag" [ngClass]="betragClass(konto.betrag)">{{ konto.betrag }}</div>
+        </div>
+        <hr>
+        <div class="ui-g">
+          <div class="ui-md-8">Ihr Gesamtsaldo:</div>
+          <div class="ui-md-4 betrag" [ngClass]="betragClass(kunde.saldo)">{{ kunde.saldo }}</div>
+        </div>
+      </p-panel>
+    </div>
+    <div class="ui-md-4">
+      <p-panel header="Ihre Aktionen">
+        <button class="ui-md-6" (click)="neuesKonto()" icon="pi pi-plus" label="Konto anlegen" pButton></button>
+      </p-panel>
+    </div>
+  </div>
+</p-panel>

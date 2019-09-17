@@ -1,0 +1,9 @@
+.kontonummer {
+  font-style: italic;
+  font-weight: lighter;
+  font-size: small;
+}
+
+:host ::ng-deep p-panel .ui-panel-footer {
+  display: none;
+}

@@ -1,33 +1,43 @@
-<h1>{{konto?.name ? konto.name : 'Konto'}} {{ konto?.kontonummer }}</h1>
+<p-panel [header]="(konto?.name ? konto.name : 'Konto') + ' ' + konto?.kontonummer" class="noFooter">
+  <div class="ui-g">
+    <div class="ui-md-3">
+      <p-panel header="Allgemein">
+        <div class="ui-g">
+          <div class="ui-md-6">Konto umbenennen:</div>
+          <div class="ui-md-6">
+            <div class="ui-inputgroup" *ngIf="!!konto">
+              <input type="text" pInputText placeholder="z.B. Girokonto" [(ngModel)]="konto.name">
+              <button pButton type="button" icon="pi pi-check" class="ui-button-success" (click)="setName()"></button>
+            </div>
+          </div>
+          <div class="ui-md-6">Saldo:</div>
+          <div class="ui-md-6" [ngClass]="betragClass(konto.betrag)">{{ konto?.betrag }}</div>
+          <div class="ui-md-6">Kreditlimit:</div>
+          <div class="ui-md-6">{{ konto?.kreditrahmen }}</div>
+        </div>
+      </p-panel>
 
-<div class="ui-inputgroup">
-  Bezeichnung:
-  <input type="text" pInputText placeholder="z.B. Girokonto" [(ngModel)]="konto.name">
-  <button pButton type="button" icon="pi pi-check" class="ui-button-success" (click)="setName()"></button>
-</div>
+    </div>
 
-<p>Saldo {{ konto?.betrag }}</p>
-<p>Kreditrahmen {{ konto?.kreditrahmen }}</p>
+    <div class="ui-md-3">
+      <spirit-zahlungsanweisung *ngIf="!!konto" [quelle]="konto.kontonummer" (onPayment)="reload()"></spirit-zahlungsanweisung>
+    </div>
 
-<spirit-zahlungsanweisung *ngIf="!!konto" [quelle]="konto.kontonummer" (onPayment)="reload()"></spirit-zahlungsanweisung>
+    <p-panel class="ui-md-6" *ngIf="!!konto" header="Aktivitäten">
+      <div class="ui-g" *ngFor="let zahlung of konto.zahlungen.reverse()">
+        <div class="ui-md-3">
+          <span class="datum">{{ zahlung.datum | date: "dd.MM.yyyy" }}</span><br>
+          <span class="kontonummer">{{ zahlung.quelle === konto.kontonummer ? zahlung.ziel : zahlung.quelle }}</span>
+        </div>
+        <div class="ui-md-6">
+          {{ !!zahlung.zweck ? zahlung.zweck : '-kein Verwendungszweck-' }}
+        </div>
+        <div class="ui-md-3" style="font-weight: bold">
+          <span class="betrag" [ngClass]="zahlung.quelle === konto.kontonummer ? 'soll' : 'haben'">{{ zahlung.betrag}}</span>
+        </div>
+      </div>
+    </p-panel>
 
-<p-table *ngIf="konto" [value]="konto.zahlungen">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Datum</th>
-      <th>Von</th>
-      <th>An</th>
-      <th>Betrag</th>
-      <th>Verwendungszweck</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-zahlung>
-    <tr>
-      <td>{{ zahlung.datum }}</td>
-      <td>{{ zahlung.quelle }}</td>
-      <td>{{ zahlung.ziel === '000' ? 'siehe Verwendungszweck' : zahlung.ziel }}</td>
-      <td>{{ zahlung.betrag }}</td>
-      <td>{{ zahlung.zweck }}</td>
-    </tr>
-  </ng-template>
-</p-table>
+  </div>
+
+</p-panel>

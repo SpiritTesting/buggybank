@@ -1,7 +1,15 @@
-<p-button label="Kundenübersicht" icon="pi pi-users" routerLink="kunden"></p-button>
-<p-button label="Kontoübersicht" icon="pi pi-dollar" routerLink="konten"></p-button>
-<p-button label="Registrieren" icon="pi pi-user-plus" (onClick)="neuerKunde.display = true"></p-button>
+<p-toolbar>
+  <div class="ui-toolbar-group-left">
+    <p-button label="Kundenübersicht" icon="pi pi-users" routerLink="kunden"></p-button>
+    <p-button label="Kontoübersicht" icon="pi pi-dollar" routerLink="konten"></p-button>
+  </div>
+  <div class="ui-toolbar-group-right">
+    <p-button label="Registrieren" icon="pi pi-user-plus" (onClick)="neuerKunde.display = true"></p-button>
+  </div>
+</p-toolbar>
 
 <spirit-neuer-kunde #neuerKunde></spirit-neuer-kunde>
 
-<router-outlet></router-outlet>
+<div class="content-pane">
+  <router-outlet></router-outlet>
+</div>

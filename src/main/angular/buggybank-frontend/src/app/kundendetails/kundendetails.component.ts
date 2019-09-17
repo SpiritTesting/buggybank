@@ -25,4 +25,8 @@ export class KundendetailsComponent implements OnInit {
   neuesKonto() {
     this.restService.postKonto(this.kunde.kundennummer).subscribe(() => { this.ngOnInit(); });
   }
+
+  betragClass(betrag: string): string {
+    return betrag.indexOf('-') > 0 ? 'betrag soll' : 'betrag haben';
+  }
 }

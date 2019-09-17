@@ -7,6 +7,7 @@ import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
+import {PanelModule, ToolbarModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +39,9 @@ import { NeuerKundeComponent } from './neuer-kunde/neuer-kunde.component';
               ButtonModule,
               InputTextModule,
               DropdownModule,
-              DialogModule
+              DialogModule,
+              ToolbarModule,
+              PanelModule
             ],
   providers: [],
   bootstrap: [AppComponent]

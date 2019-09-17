@@ -29,4 +29,8 @@ export class KontodetailsComponent implements OnInit {
       this.konto = data;
     });
   }
+
+  betragClass(betrag: string): string {
+    return betrag.indexOf('-') > 0 ? 'betrag soll' : 'betrag haben';
+  }
 }
