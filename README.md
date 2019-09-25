@@ -1,27 +1,75 @@
-# BuggybankFrontend
+<div style="background-color: #16161D; display: block">
+    <figure>
+        <img src="./eagle.svg" alt="BuggyBank">
+        <figcaption><h1>Buggybank Tutorial</h1></figcaption>
+    </figure>
+</div>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.4.
+Willkommen zum Buggybank Tutorial in der SPIRIT Academy. In diesem Kurs wirst Du eine moderne
+ Webanwendung mit Angular Frontend und Spring Boot Backend entwickeln. Wir beginnen ganz am Anfang. Der Kurs setzt
+  voraus, dass Du bereits die Grundzüge der objektorientierten Programmierung kennst und anwenden kannst. Die
+   Programmiersprachen, in denen Du Dich auskennst, sind dabei unerheblich - nur die Konzepte wie zum Beispiel Klassen 
+   , Vererbung und Kapselung solltest Du kennen.
+   
+   # Was benötige ich für das Tutorial?
+   Um dieses Tutorial zu bearbeiten, benötigst Du einen halbwegs zeitgemäßen Computer mit Internetzugang. Eine gute
+    Entwicklungsumgebung - in den Videoanteilen benutze ich Jetbrains IntelliJ IDEA Ultimate - hilft bei der
+     Bearbeitung enorm, ist aber nicht zwingend vorausgesetzt. Die Bearbeitung der Dateien kann prinzipiell mit jedem
+      Texteditor erfolgen. Eine richtige Entwicklungsumgebung erleichtert aber die Arbeit sehr. Das kostenlose und
+       ebenfalls sehr mächtige Programm [Eclipse](https://www.eclipse.org/downloads/) ist eine gute Alternative zu
+        IntelliJ.
+        
+ # Wie ist das Tutorial organisiert?
+ 
+Zum Tutorial gehören:
+* dieses GitHub-Repository, in dem die Aufgaben, Musterlösungen und der gesamte Quellcode der Anwendung hinterlegt
+ist
+* Die PowerPoint-Datei `Aufgaben.pptx` in diesem Repository. Sie enthält die Aufgaben der einzelnen Kapitel und
+ teilweise weiterführende Informationen, um den richtigen Ansatz zu finden.
+ * Die unten verlinkten Videos auf Youtube. In diesen Videos erkläre ich zu jedem Thema die Aufgabenstellung und gebe
+  Hinweise auf den richtigen Lösungsweg. In den Kommentaren zu den Videos sind häufig Links zur passenden
+   Dokumentation hinterlegt. Außerdem gibt es für jede Aufgabe eine Musterlösung, die ich in jeweils einem Video
+    bespreche. Die Lösung muss nicht der einzig richtige Weg sein, die Aufgabe zu erfüllen!
+    
+Du solltest mit dem Video zur Einrichtung Deines Computeres beginnen. Wenn Dein Computer eingerichtet ist, beginne
+ mit Level 1. Dort beschreibe ich anhand der Aufgabendatei den Einstieg in das Tutorial. Der Rest ergibt sich dann
+  von selbst. In den ersten drei Leveln zeige ich Dir noch, wie ich selbst die Lösung erarbeite. Später dann führe
+   ich Dich durch den fertigen Code.
+  Nachdem Du selbst die Aufgabe gelöst hast, vergleiche Dein Ergebnis mit dem Video zur Musterlösung!
+  
+  Zu jedem Level und häufig nach jeder Aufgabe habe ich meinen Codestand hier abrufbar gemacht. Wenn Du also mal
+   nicht weiterkommst oder Deine Lösung völlig anders aussieht als meine, kannst Du hier im GitHub unter dem Reiter
+    `Releases` einfach meinen Code herunterladen und in Dein Projektverzeichnis kopieren. 
+    
+# Videos
+[Installation der Entwicklungsumgebung](https://www.youtube.com/watch?v=d1MkcNximsY)
 
-## Development server
+[Zusatzkonfiguration: Docker](https://www.youtube.com/watch?v=I5D4ulMqY38)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Level 1: 
+[Teil 1](https://www.youtube.com/watch?v=bfsvT5TAC7U)
 
-## Code scaffolding
+Level 2: 
+[Teil 1](https://www.youtube.com/watch?v=bMGB4FRJWUc)
+[Teil 2](https://www.youtube.com/watch?v=QQYMzH0jVf0)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Level 3: 
+[Teil 1](https://www.youtube.com/watch?v=RfXS5M08whU)
+[Teil 2](https://www.youtube.com/watch?v=oxge5S3feFk)
+[Teil 3](https://www.youtube.com/watch?v=Gm-U8uGuuKk)
 
-## Build
+Level 4:
+in Arbeit
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Level 5: 
+in Arbeit
 
-## Running unit tests
+Level 6: in Arbeit
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Level 7: in Arbeit
 
-## Running end-to-end tests
+Level 8: in Arbeit
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Level 9: in Arbeit
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Level 10: in Arbeit
