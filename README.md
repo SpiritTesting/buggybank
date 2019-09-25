@@ -1,6 +1,6 @@
 <div style="background-color: #16161D; display: block">
     <figure>
-        <img src="./eagle.svg" alt="BuggyBank">
+        <img src="./eagle.svg" alt="BuggyBank" width="256">
         <figcaption><h1>Buggybank Tutorial</h1></figcaption>
     </figure>
 </div>
