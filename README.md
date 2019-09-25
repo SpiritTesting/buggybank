@@ -46,6 +46,8 @@ Du solltest mit dem Video zur Einrichtung Deines Computeres beginnen. Wenn Dein 
 
 [Zusatzkonfiguration: Docker](https://www.youtube.com/watch?v=I5D4ulMqY38)
 
+[Info: Umgang mit GitHub](https://www.youtube.com/watch?v=jZ7dbVQQLSY)
+
 Level 1: 
 [Teil 1](https://www.youtube.com/watch?v=bfsvT5TAC7U)
 
