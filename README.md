@@ -54,6 +54,8 @@ Level 1:
 Level 2: 
 [Teil 1](https://www.youtube.com/watch?v=bMGB4FRJWUc)
 [Teil 2](https://www.youtube.com/watch?v=QQYMzH0jVf0)
+[CrowdCoding Lösung Teil 1](https://www.youtube.com/watch?v=ukAIn5JwvWw)
+[CrowdCoding Lösung Teil 2](https://www.youtube.com/watch?v=W88V3zKzq14)
 
 Level 3: 
 [Teil 1](https://www.youtube.com/watch?v=RfXS5M08whU)
@@ -62,7 +64,8 @@ Level 3:
 
 Level 4:
 [Aufgaben](https://www.youtube.com/watch?v=xMjFIMq6uLI)
-[Lösung Teil1](https://youtu.be/FZJfIQTMLe8)
+[CrowdCoding Lösung Teil1](https://www.youtube.com/watch?v=FZJfIQTMLe8)
+[CrowdCoding Lösung Teil2](https://www.youtube.com/watch?v=FZJfIQTMLe8)
 
 Level 5: 
 in Arbeit
