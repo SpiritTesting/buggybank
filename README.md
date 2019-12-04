@@ -42,40 +42,38 @@ Du solltest mit dem Video zur Einrichtung Deines Computeres beginnen. Wenn Dein 
     `Releases` einfach meinen Code herunterladen und in Dein Projektverzeichnis kopieren. 
     
 # Videos
-[Installation der Entwicklungsumgebung](https://www.youtube.com/watch?v=d1MkcNximsY)
-
-[Zusatzkonfiguration: Docker](https://www.youtube.com/watch?v=I5D4ulMqY38)
-
-[Info: Umgang mit GitHub](https://www.youtube.com/watch?v=jZ7dbVQQLSY)
+- [Installation der Entwicklungsumgebung](https://www.youtube.com/watch?v=d1MkcNximsY)
+- [Zusatzkonfiguration: Docker](https://www.youtube.com/watch?v=I5D4ulMqY38)
+- [Info: Umgang mit GitHub](https://www.youtube.com/watch?v=jZ7dbVQQLSY)
 
 Level 1: 
-[Teil 1](https://www.youtube.com/watch?v=bfsvT5TAC7U)
+- [Teil 1](https://www.youtube.com/watch?v=bfsvT5TAC7U)
 
 Level 2: 
-[Teil 1](https://www.youtube.com/watch?v=bMGB4FRJWUc)
-[Teil 2](https://www.youtube.com/watch?v=QQYMzH0jVf0)
-[CrowdCoding Lösung Teil 1](https://www.youtube.com/watch?v=ukAIn5JwvWw)
-[CrowdCoding Lösung Teil 2](https://www.youtube.com/watch?v=W88V3zKzq14)
+- [Teil 1](https://www.youtube.com/watch?v=bMGB4FRJWUc)
+- [Teil 2](https://www.youtube.com/watch?v=QQYMzH0jVf0)
+- [CrowdCoding Lösung Teil 1](https://www.youtube.com/watch?v=ukAIn5JwvWw)
+- [CrowdCoding Lösung Teil 2](https://www.youtube.com/watch?v=W88V3zKzq14)
 
 Level 3: 
-[Teil 1](https://www.youtube.com/watch?v=RfXS5M08whU)
-[Teil 2](https://www.youtube.com/watch?v=oxge5S3feFk)
-[Teil 3](https://www.youtube.com/watch?v=Gm-U8uGuuKk)
+- [Teil 1](https://www.youtube.com/watch?v=RfXS5M08whU)
+- [Teil 2](https://www.youtube.com/watch?v=oxge5S3feFk)
+- [Teil 3](https://www.youtube.com/watch?v=Gm-U8uGuuKk)
 
 Level 4:
-[Aufgaben](https://www.youtube.com/watch?v=xMjFIMq6uLI)
-[CrowdCoding Lösung Teil1](https://www.youtube.com/watch?v=FZJfIQTMLe8)
-[CrowdCoding Lösung Teil2](https://www.youtube.com/watch?v=FZJfIQTMLe8)
+- [Aufgaben](https://www.youtube.com/watch?v=xMjFIMq6uLI)
+- [CrowdCoding Lösung Teil1](https://www.youtube.com/watch?v=FZJfIQTMLe8)
+- [CrowdCoding Lösung Teil2](https://www.youtube.com/watch?v=FZJfIQTMLe8)
 
 Level 5: 
-[Aufgaben und Einführung](https://www.youtube.com/watch?v=WxK45fWtsik)
-[CrowdCoding Lösung Teil1](https://www.youtube.com/watch?v=prKLI8dwG2o)
-[CrowdCoding Lösung Teil2](https://www.youtube.com/watch?v=zvtnTiQ1oT4)
-[CrowdCoding Lösung Teil3](https://www.youtube.com/watch?v=txVsGr7jSYs)
-[Zusammenfassung & Knifflige Stellen](https://www.youtube.com/watch?v=VIxdnxicp_I)
+- [Aufgaben und Einführung](https://www.youtube.com/watch?v=WxK45fWtsik)
+- [CrowdCoding Lösung Teil1](https://www.youtube.com/watch?v=prKLI8dwG2o)
+- [CrowdCoding Lösung Teil2](https://www.youtube.com/watch?v=zvtnTiQ1oT4)
+- [CrowdCoding Lösung Teil3](https://www.youtube.com/watch?v=txVsGr7jSYs)
+- [Zusammenfassung & Knifflige Stellen](https://www.youtube.com/watch?v=VIxdnxicp_I)
 
 Level 6: 
-[Aufgaben und Einführung](https://www.youtube.com/watch?v=DfByaNJAdkw)
+- [Aufgaben und Einführung](https://www.youtube.com/watch?v=DfByaNJAdkw)
 
 Level 7: in Arbeit
 
