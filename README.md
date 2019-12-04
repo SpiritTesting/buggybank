@@ -68,9 +68,14 @@ Level 4:
 [CrowdCoding Lösung Teil2](https://www.youtube.com/watch?v=FZJfIQTMLe8)
 
 Level 5: 
+[Aufgaben und Einführung](https://www.youtube.com/watch?v=WxK45fWtsik)
 [CrowdCoding Lösung Teil1](https://www.youtube.com/watch?v=prKLI8dwG2o)
+[CrowdCoding Lösung Teil2](https://www.youtube.com/watch?v=zvtnTiQ1oT4)
+[CrowdCoding Lösung Teil3](https://www.youtube.com/watch?v=txVsGr7jSYs)
+[Zusammenfassung & Knifflige Stellen](https://www.youtube.com/watch?v=VIxdnxicp_I)
 
-Level 6: in Arbeit
+Level 6: 
+[Aufgaben und Einführung](https://www.youtube.com/watch?v=DfByaNJAdkw)
 
 Level 7: in Arbeit
 
