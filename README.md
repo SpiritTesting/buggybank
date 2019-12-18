@@ -75,7 +75,13 @@ Level 5:
 Level 6: 
 - [Aufgaben und Einführung](https://www.youtube.com/watch?v=DfByaNJAdkw)
 
-Level 7: in Arbeit
+Level 7: 
+- [Aufgaben und Einführung](https://www.youtube.com/watch?v=p_lRyq0rtoE)
+- [Aufsetzen einer Angular Applikation](https://www.youtube.com/watch?v=mnFMFI75qg8)
+- [Component 'KundenListe' erzeugen](https://www.youtube.com/watch?v=IMWMwg6nG-4)
+- [KundenDetails und Einbindung als Subkomponente und über Router](https://www.youtube.com/watch?v=EUV5CJdKvII)
+- [KontenListe als Subkomponente](https://www.youtube.com/watch?v=YE2jFmOVypc)
+- [Übrige Aufgaben - Wiederholung](https://www.youtube.com/watch?v=9fvruKJkrxs)
 
 Level 8: in Arbeit
 
