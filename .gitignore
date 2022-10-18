@@ -50,3 +50,4 @@ target/**
 ~$Aufgaben.pptx
 logs/**
 data/**
+.angular
