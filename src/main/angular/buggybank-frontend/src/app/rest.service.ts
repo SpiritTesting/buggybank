@@ -13,8 +13,8 @@ import {Kunde} from './kundenuebersicht/kunde.model';
             })
 export class RestService {
 
-  private kundenUrl = SERVER_API_URL + 'kunde/';
-  private kontenUrl = SERVER_API_URL + 'konto/';
+  kundenUrl = SERVER_API_URL + 'kunde/';
+  kontenUrl = SERVER_API_URL + 'konto/';
 
   constructor(private http: HttpClient) {}
 
