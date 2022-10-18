@@ -7,7 +7,7 @@
       <th>Kontostand</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-konto>
+  <ng-template pTemplate="body" let-konto class="account-row">
     <tr>
       <td><a [routerLink]="konto.kontonummer">{{ konto.kontonummer }}</a></td>
       <td>{{ konto.name }}</td>
