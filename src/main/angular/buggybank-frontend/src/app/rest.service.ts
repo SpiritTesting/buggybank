@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {MessageService} from 'primeng/api';
+
 import {Observable} from 'rxjs';
 import {SERVER_API_URL} from './app.constants';
 import {Kontodetails} from './kontodetails/kontodetails.model';
