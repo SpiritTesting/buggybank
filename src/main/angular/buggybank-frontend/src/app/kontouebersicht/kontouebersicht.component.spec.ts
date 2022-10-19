@@ -1,41 +1,33 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { KontouebersichtComponent } from './kontouebersicht.component';
-import {ACCOUNTS} from "../../server/db-data";
-import {setupAccounts} from "../../server/db-data";
+import {ComponentFixture, fakeAsync, TestBed, waitForAsync} from '@angular/core/testing';
+import {KontouebersichtComponent } from './kontouebersicht.component';
 import {DebugElement} from "@angular/core";
 import {RestService} from "../rest.service";
 import {AppModule} from "../app.module";
-import {By} from "@angular/platform-browser";
 import {of} from "rxjs";
-
+import {ACCOUNTS} from "../../server/db-data";
+import {By} from "@angular/platform-browser";
 
 describe('KontouebersichtComponent', () => {
-  let component: KontouebersichtComponent;
+
   let fixture: ComponentFixture<KontouebersichtComponent>;
+  let component: KontouebersichtComponent;
   let element: DebugElement;
-  let restService: any;
+  let restService: RestService;
+  let accountsInArray: any;
 
-
-  beforeEach(async(() => {
-    const restServiceSpy = jasmine.createSpyObj('RestService', ['getKonto','getKonten'])
-
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-
-      declarations: [ KontouebersichtComponent ],
-      providers: [
-        {provide: RestService, useValue: restServiceSpy}
-      ],
       imports: [
         AppModule
-      ],
-    }).compileComponents().then(() => {
+      ]}).compileComponents()
+      .then(() => {
 
       fixture = TestBed.createComponent(KontouebersichtComponent);
       component = fixture.componentInstance;
       element = fixture.debugElement;
-      restService = TestBed.get(RestService);
+      restService = TestBed.inject(RestService);
+      accountsInArray = (Object.values(ACCOUNTS))
     });
   }));
 
@@ -44,26 +36,68 @@ describe('KontouebersichtComponent', () => {
 
     expect(component).toBeTruthy();
   });
-  it('should display list of accounts', () => {
 
-    component.konten = Object.values(ACCOUNTS);
-    console.log(component.konten);
 
-    restService.getKonten().and.returnValue(of(setupAccounts()));
+  it('should get accounts from service and correct subscribe to value',() => {
+
+
+    spyOn(restService, 'getKonten').and.returnValue(of(accountsInArray))
+    spyOn(restService, 'getKonto').and.returnValue(of(accountsInArray[3]))
+
+    component.ngOnInit()
+    fixture.detectChanges();
+
+    spyOn(restService.getKonto("000"), 'subscribe')
+    spyOn(restService.getKonten(), 'subscribe')
+
+
+    expect(component.sonderkonto).toBeTruthy( "Sonderkonto was not defined")
+    expect(component.konten).toBeTruthy("Konten was not defined")
+
+
+  });
+
+
+  it('should display accounts list', () => {
+
+
+    spyOn(restService, 'getKonten').and.returnValue(of(accountsInArray))
+
+    component.ngOnInit()
+    fixture.detectChanges();
+
+    spyOn(restService.getKonten(), 'subscribe')
+
+
+    const rows = element.queryAll(By.css("tr"));
+    expect(rows.length).toBe(5, "Unexpected number of rows found");
+
+  });
+
+
+  it('should display account details', fakeAsync( () => {
+
+
+    spyOn(restService, 'getKonten').and.returnValue(of(accountsInArray))
+    spyOn(restService, 'getKonto').and.returnValue(of(accountsInArray[0]))
+
+    component.ngOnInit()
+    fixture.detectChanges();
+
+
+    spyOn(restService.getKonten(), 'subscribe')
+    spyOn(restService.getKonto("12340003"), 'subscribe')
 
     fixture.detectChanges();
 
-  });
-  it('should display account details', () => {
+    const accountNumber = element.query(By.css(".account-number"))
+    expect(accountNumber.nativeElement.textContent).toBe('12340003');
 
-    pending();
-  });
-  it('should convert amount to euro/ cent format', () => {
+    const accountName = element.query(By.css(".account-name"))
+    expect(accountName.nativeElement.textContent).toBe('First account');
 
-    pending();
-  });
-  it('should display sum the amount', () => {
+    const accountAmount = element.query(By.css(".account-amount"))
+    expect(accountAmount.nativeElement.textContent).toBe('EUR 0.00');
+  }));
 
-    pending();
-  });
 });

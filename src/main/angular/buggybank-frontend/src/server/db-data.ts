@@ -19,6 +19,11 @@ export const ACCOUNTS:any = {
   betrag: "EUR 110.00",
   name: null
 },
+  4:{
+    kontonummer: "000",
+    betrag: "EUR 110.00",
+    name: null
+  },
 }
 
 export const USERS:any = {

@@ -9,9 +9,9 @@
   </ng-template>
   <ng-template pTemplate="body" let-konto class="account-row">
     <tr>
-      <td><a [routerLink]="konto.kontonummer">{{ konto.kontonummer }}</a></td>
-      <td>{{ konto.name }}</td>
-      <td>{{ konto.betrag }}</td>
+      <td><a class="account-number" [routerLink]="konto.kontonummer">{{ konto.kontonummer }}</a></td>
+      <td class="account-name">{{ konto.name }}</td>
+      <td class="account-amount">{{ konto.betrag }}</td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
