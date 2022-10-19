@@ -1,6 +1,7 @@
 import {Konto} from "../app/kontouebersicht/konto.model";
 
 export const ACCOUNTS:any = {
+
 1:{
   kontonummer: "12340003",
   betrag: "EUR 0.00",
