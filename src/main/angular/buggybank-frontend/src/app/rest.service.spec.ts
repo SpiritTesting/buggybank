@@ -223,7 +223,7 @@ describe('RestService', () => {
   });
 
 
-  fit('should save new payment', () => {
+  it('should save new payment', () => {
 
     const changes :any =
       {
