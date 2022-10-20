@@ -1,11 +1,31 @@
 import {Konto} from "../app/kontouebersicht/konto.model";
 
+
 export const ACCOUNTS:any = {
 
 1:{
   kontonummer: "12340003",
   betrag: "EUR 0.00",
-  name: 'First account'
+  name: 'First account',
+  zahlungen:[
+    {
+      datum: "05-05-2023",
+      quelle: "User1",
+      ziel: 'User2',
+      betrag: 'EUR 50.00',
+      zweck: 'Test 2'
+
+    },
+    {
+      datum: "04-04-2023",
+      quelle: "User1",
+      ziel: 'User2',
+      betrag: 'EUR 10.00',
+      zweck: 'Test 2'
+
+    },
+
+  ],
 },
 
 2:{
