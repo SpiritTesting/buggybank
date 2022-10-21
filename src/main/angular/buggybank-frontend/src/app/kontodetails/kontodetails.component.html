@@ -11,9 +11,9 @@
             </div>
           </div>
           <div class="ui-md-6">Saldo:</div>
-          <div class="ui-md-6" [ngClass]="betragClass(konto.betrag)">{{ konto.betrag }}</div>
+          <div class="ui-md-6 account-amount" [ngClass]="betragClass(konto.betrag)">{{ konto.betrag }}</div>
           <div class="ui-md-6">Kreditlimit:</div>
-          <div class="ui-md-6">{{ konto?.kreditrahmen }}</div>
+          <div class="ui-md-6 account-limit">{{ konto?.kreditrahmen }}</div>
         </div>
       </p-panel>
 
@@ -24,7 +24,7 @@
     </div>
 
     <p-panel class="ui-md-6" *ngIf="!!konto" header="Aktivitäten">
-      <div class="ui-g" *ngFor="let zahlung of konto.zahlungen.reverse()">
+      <div class="ui-g account-activity" *ngFor="let zahlung of konto.zahlungen.reverse()">
         <div class="ui-md-3">
           <span class="datum">{{ zahlung.datum | date: "dd.MM.yyyy" }}</span><br>
           <span class="kontonummer">{{ zahlung.quelle === konto.kontonummer ? zahlung.ziel : zahlung.quelle }}</span>

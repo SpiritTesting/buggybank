@@ -1,5 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
-
+import { ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import { KontodetailsComponent } from './kontodetails.component';
 import {DebugElement} from "@angular/core";
 import {RestService} from "../rest.service";
@@ -7,8 +6,9 @@ import {AppModule} from "../app.module";
 import {of} from "rxjs";
 import {ACCOUNTS} from "../../server/db-data";
 import {ActivatedRoute, convertToParamMap, Router} from "@angular/router";
+import {By} from "@angular/platform-browser";
 
-fdescribe('KontodetailsComponent', () => {
+describe('KontodetailsComponent', () => {
   let component: KontodetailsComponent;
   let fixture: ComponentFixture<KontodetailsComponent>;
   let element: DebugElement;
@@ -59,12 +59,6 @@ fdescribe('KontodetailsComponent', () => {
   });
 
 
-
-  it('should get account number from activated route', waitForAsync(() =>  {
-    pending();
-
-  }));
-
   it('should get correct account details', () => {
 
     restService.getKonto.and.returnValue(of(accountsInArray[0]));
@@ -78,13 +72,25 @@ fdescribe('KontodetailsComponent', () => {
       expect(component.konto.name).toBe('First account',"Wrong account name");
 
   });
-  fit('should display correct account details', () => {
+
+
+  it('should display correct account details', () => {
     restService.getKonto.and.returnValue(of(accountsInArray[0]));
     restService.getKonten.and.returnValue(of(accountsInArray));
 
     fixture.detectChanges()
+    const accountTitle = element.query(By.css('p-panel'));
+    expect(accountTitle.nativeElement.textContent).toContain("First account 12340003", "Wrong account title");
+
+    const accountAmount = element.query(By.css('.account-amount'));
+    expect(accountAmount.nativeElement.textContent).toBe('EUR 0.00', "Wrong amount")
+
+    const accountLimit = element.query(By.css('.account-limit'));
+    expect(accountLimit.nativeElement.textContent).toBe('', "Unexpected account limit")
+
+    const accountActivity = element.queryAll(By.css('.account-activity'));
+    expect(accountActivity.length).toBeGreaterThan(0,"Could not find activities");
+
   });
-  it('should set name for account ', () => {
-    pending();
-  });
+
 });
