@@ -7,8 +7,8 @@
   </ng-template>
   <ng-template pTemplate="body" let-kunde>
     <tr>
-      <td><a [routerLink]="kunde.kundennummer">{{ kunde.kundennummer }}</a></td>
-      <td>{{ kunde.name }}</td>
+      <td><a class="user-number" [routerLink]="kunde.kundennummer">{{ kunde.kundennummer }}</a></td>
+      <td class="user-name">{{ kunde.name }}</td>
     </tr>
   </ng-template>
 </p-table>

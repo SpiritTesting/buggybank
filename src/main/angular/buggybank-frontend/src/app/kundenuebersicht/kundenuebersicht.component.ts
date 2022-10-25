@@ -15,6 +15,7 @@ export class KundenuebersichtComponent implements OnInit {
 
   ngOnInit() {
     this.restService.getKunden().subscribe(data => this.kunden = data);
+
   }
 
 }
