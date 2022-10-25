@@ -23,11 +23,13 @@ describe('KontouebersichtComponent', () => {
       ]}).compileComponents()
       .then(() => {
 
-      fixture = TestBed.createComponent(KontouebersichtComponent);
-      component = fixture.componentInstance;
-      element = fixture.debugElement;
-      restService = TestBed.inject(RestService);
-      accountsInArray = (Object.values(ACCOUNTS))
+        fixture = TestBed.createComponent(KontouebersichtComponent)
+        component = fixture.componentInstance
+        element = fixture.debugElement
+        restService = TestBed.inject(RestService)
+        accountsInArray = (Object.values(ACCOUNTS))
+        spyOn(restService, 'getKonten').and.returnValue(of(accountsInArray))
+        spyOn(restService, 'getKonto').and.returnValue(of(accountsInArray[3]))
     });
   }));
 
@@ -40,11 +42,6 @@ describe('KontouebersichtComponent', () => {
 
   it('should get accounts from service and correct subscribe to value',() => {
 
-
-    spyOn(restService, 'getKonten').and.returnValue(of(accountsInArray))
-    spyOn(restService, 'getKonto').and.returnValue(of(accountsInArray[3]))
-
-    component.ngOnInit()
     fixture.detectChanges();
 
     spyOn(restService.getKonto("000"), 'subscribe')
@@ -52,18 +49,13 @@ describe('KontouebersichtComponent', () => {
 
 
     expect(component.sonderkonto).toBeTruthy( "Sonderkonto was not defined")
-    expect(component.konten).toBeTruthy("Konten was not defined")
-
+    expect(component.konten).toBeTruthy("Konten were not defined")
 
   });
-
 
   it('should display accounts list', () => {
 
 
-    spyOn(restService, 'getKonten').and.returnValue(of(accountsInArray))
-
-    component.ngOnInit()
     fixture.detectChanges();
 
     spyOn(restService.getKonten(), 'subscribe')
@@ -75,13 +67,8 @@ describe('KontouebersichtComponent', () => {
   });
 
 
-  it('should display account details', fakeAsync( () => {
+  it('should display account details', () => {
 
-
-    spyOn(restService, 'getKonten').and.returnValue(of(accountsInArray))
-    spyOn(restService, 'getKonto').and.returnValue(of(accountsInArray[0]))
-
-    component.ngOnInit()
     fixture.detectChanges();
 
 
@@ -98,6 +85,6 @@ describe('KontouebersichtComponent', () => {
 
     const accountAmount = element.query(By.css(".account-amount"))
     expect(accountAmount.nativeElement.textContent).toBe('EUR 0.00');
-  }));
+  });
 
 });
