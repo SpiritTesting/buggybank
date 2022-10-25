@@ -12,8 +12,8 @@ describe('KontouebersichtComponent', () => {
   let fixture: ComponentFixture<KontouebersichtComponent>;
   let component: KontouebersichtComponent;
   let element: DebugElement;
-  let restService: RestService;
-  let accountsInArray: any;
+  let restService: any;
+  let accountsInArray = [{}];
 
   beforeEach(waitForAsync(() => {
 
